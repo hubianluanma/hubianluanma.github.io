@@ -34,4 +34,4 @@ theme = 'mainroad'
   cached = true
 [caches]
   [caches.images]
-    dir = ':cacheDir/images
+    dir = ':cacheDir/images'

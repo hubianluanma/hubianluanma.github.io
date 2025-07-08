@@ -1,6 +1,6 @@
 +++
 date = '2025-07-07T14:15:56+08:00'
-draft = true
+draft = false
 title = '我的第一款长期维护的微信小程序'
 categories = ["独立开发"]
 tags = ["微信小程序", "产品笔记"]
