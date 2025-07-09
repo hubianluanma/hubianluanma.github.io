@@ -1,1 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tags on 胡编乱码</title><link>https://www.hubianluanma.com/tags/</link><description>Recent content in Tags on 胡编乱码</description><generator>Hugo</generator><language>zh-ch</language><lastBuildDate>Mon, 07 Jul 2025 14:15:56 +0800</lastBuildDate><atom:link href="https://www.hubianluanma.com/tags/index.xml" rel="self" type="application/rss+xml"/><item><title>产品笔记</title><link>https://www.hubianluanma.com/tags/%E4%BA%A7%E5%93%81%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 07 Jul 2025 14:15:56 +0800</pubDate><guid>https://www.hubianluanma.com/tags/%E4%BA%A7%E5%93%81%E7%AC%94%E8%AE%B0/</guid><description/></item><item><title>微信小程序</title><link>https://www.hubianluanma.com/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</link><pubDate>Mon, 07 Jul 2025 14:15:56 +0800</pubDate><guid>https://www.hubianluanma.com/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</guid><description/></item><item><title>随笔</title><link>https://www.hubianluanma.com/tags/%E9%9A%8F%E7%AC%94/</link><pubDate>Mon, 07 Jul 2025 11:39:31 +0800</pubDate><guid>https://www.hubianluanma.com/tags/%E9%9A%8F%E7%AC%94/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 胡编乱码</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>Recent content in Tags on 胡编乱码</description>
+    <generator>Hugo</generator>
+    <language>zh-ch</language>
+    <lastBuildDate>Mon, 07 Jul 2025 14:15:56 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>产品笔记</title>
+      <link>http://localhost:1313/tags/%E4%BA%A7%E5%93%81%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 07 Jul 2025 14:15:56 +0800</pubDate>
+      <guid>http://localhost:1313/tags/%E4%BA%A7%E5%93%81%E7%AC%94%E8%AE%B0/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>微信小程序</title>
+      <link>http://localhost:1313/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</link>
+      <pubDate>Mon, 07 Jul 2025 14:15:56 +0800</pubDate>
+      <guid>http://localhost:1313/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>随笔</title>
+      <link>http://localhost:1313/tags/%E9%9A%8F%E7%AC%94/</link>
+      <pubDate>Mon, 07 Jul 2025 11:39:31 +0800</pubDate>
+      <guid>http://localhost:1313/tags/%E9%9A%8F%E7%AC%94/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
