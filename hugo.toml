@@ -1,4 +1,4 @@
-baseURL = 'https://www.hubianluanma.com'
+baseURL = 'https://blog.hubianluanma.com'
 languageCode = 'zh-ch'
 title = '胡编乱码'
 theme = 'mainroad'
