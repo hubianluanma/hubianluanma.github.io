@@ -1,5 +1,8 @@
 baseURL = 'https://blog.hubianluanma.com'
-languageCode = 'zh-ch'
+languageCode = 'zh-CN'
+hasCJKLanguage = true
+defaultContentLanguage = "zh-cn"
+defaultContentLanguageInSubdir = false
 title = '胡编乱码'
 theme = 'mainroad'
 [Params.logo]
