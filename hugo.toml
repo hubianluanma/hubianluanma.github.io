@@ -25,6 +25,7 @@ theme = 'mainroad'
 [[Params.widgets.social.custom]]
   title = "huhailong"
   url = "https://www.huhailong.vip"
+  icon = "svg/website.svg"
 [Params.widgets.search]
   cached = true
 [Params.widgets.recent]

@@ -3,7 +3,7 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Hello World - 胡编乱码</title>
+	<title>Mainroad 主题如何配置 Giscus 评论系统 - 胡编乱码</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,14 +39,42 @@
 <main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">Hello World</h1>
+			<h1 class="post__title">Mainroad 主题如何配置 Giscus 评论系统</h1>
 			
 		</header>
 		<div class="content post__content clearfix">
-			<p>Hello，这里是胡编乱码，我叫胡海龙，一名全栈开发工程师。<strong>胡编乱码</strong>这个昵称将会用于各个平台，例如哔哩哔哩、抖音等。之所以起这个名字是因为我希望未来能通过我的分享让编程或者说开发像这个名字一样“有趣”，本身编码开发是一件很枯燥的事情，如果能和有趣的事情结合那应该会变的不那么枯燥。</p>
-<p>总之，非常开心你能访问到我的网站，如果你希望看一些有趣的编程内容，或者一些干货分享（不能光有趣呀）请收藏本站，或关注哔哩哔哩的<strong>胡编乱码</strong>（虽然有一阵子没更新了，但是总会更新的嘛）。</p>
-<p>我的另外一个个人网站是：<a href="https://www.huhailong.vip">www.huhailong.vip</a> 它相对来说内容比较分散，因为我什么都会先分享到这里，这个网站也是我最早纯手工撸出来的。</p>
-<p>我的联系方式：huhailong1121@icloud.com、huhailong1121@gmail.com</p>
+			<p>Hello，本文介绍和记录一下如何对 <strong>Mainroad</strong> 这个主题配置评论模块，Mainroad 这个主题它默认支持的是 Disqus 评论系统，但是我更喜欢使用 Giscus 这个评论系统，因为它是基于 GitHub Discussions，这样既保护用户隐私，又方便管理，最重要的是它免费且纯净无广告。</p>
+<p>结下来的步骤默认已经有 GitHub 账号了，没有的话请自行方法 <a href="https://github.com">GitHub 官网</a> 进行注册。接下来我们需要做的就是配置 Giscus 应用了。</p>
+<p>首先我们访问 Giscus 官网：<a href="https://giscus.app">https://giscus.app</a>，然后找到配置部分，官网中其实已经有很明确的步骤，只要跟着步骤走就可以，不过这里我还是简单的说一下吧，共有三个步骤：</p>
+<ol>
+<li>首先将我们要存储评论的仓库设置为公开的，不可以是 private 的，例如我这里使用了 GitHub Pages 部署我的博客，那我就将我的仓库 <a href="https://github.com/hubianluanma/hubianluanma.github.io">hubianluanma.github.io</a> 设置为了公开（本来就是 public 的，因为 pages 功能开启的时候就必须要求仓库是 public 的）。</li>
+<li>第二步就是给我们的 github 安装 giscus app，只有安装了以后才可以使用，可以直接点击 giscus 提供的链接跳转安装，或访问 <a href="https://github.com/apps/giscus">这个网址</a>。</li>
+<li>最后我们需要将对应仓库的 Discussion 功能开启，这个设置位置在仓库的 settings 菜单中，往下拉就可以看到，如下图：</li>
+</ol>
+<p><img src="https://moodrecorder.cn/u/GrBQXE.png" alt="github discussion"></p>
+<p>完成上面的设置后接下来在 giscus 提供的仓库下面的输入框中输入：<strong>用户名/仓库名</strong> 注意这里的斜杠不是或的意思。</p>
+<p>然后下面的其他配置默认就可以，除非你知道自己在干嘛而设置其他选项，拉到最下面会看到生成的一段 script 脚本，接下来我们就会用到它。</p>
+<p>现在我们返回到 hugo 的目录，进入到 mainroad 的主题根目录，在进入到 layouts/partials 下面新建一个文件：giscus.html 然后插入下面的代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;giscus-comments&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://giscus.app/client.js&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data-repo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;你的用户名/你的仓库名&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data-repo-id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;你的repo ID&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data-category</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;你选择的分类名&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data-category-id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;你选择的分类ID&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data-mapping</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pathname&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data-strict</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data-reactions-enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data-emit-metadata</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data-input-position</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bottom&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data-theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;preferred_color_scheme&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data-lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;zh-CN&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">crossorigin</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anonymous&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">async</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><p>其中 script 部分的内容就是 giscus 官网中生成的，直接粘贴进去就可以，然后我们在回到 layouts 文件夹，进入 _default 文件夹中，找到 single.html 文件，打开文件找到 disqus.html 替换为 giscus.html ，当然如果你想配置为根据 hugo 根目录的配置文件——hugo.toml 文件进行控制是否开启的话，可以仿照 comments.html 中添加相关的判断。</p>
+<p>OK，大功告成，这下我们可以愉快的使用 Giscus 评论系统了，免费、简洁、安全。</p>
+
 		</div>
 		<footer class="post__footer">
 			
@@ -54,7 +82,7 @@
 	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M4 0h8s2 0 4 2l15 15s2 2 0 4L21 31s-2 2-4 0L2 16s-2-2-2-4V3s0-3 4-3m3 10a3 3 0 0 0 0-6 3 3 0 0 0 0 6"/></svg>
 	<ul class="tags__list">
 		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a>
+			<a class="tags__link btn" href="/tags/%E5%BB%BA%E7%AB%99%E7%AC%94%E8%AE%B0/" rel="tag">建站笔记</a>
 		</li>
 	</ul>
 </div>
