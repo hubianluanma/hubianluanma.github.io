@@ -6,14 +6,21 @@
     <description>Recent content in 首页 on 胡编乱码</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 24 Jul 2025 09:57:19 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 24 Jul 2025 10:37:51 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基基孔肯雅热出现在中国广东</title>
+      <link>http://localhost:1313/post/chikungunya/</link>
+      <pubDate>Thu, 24 Jul 2025 10:37:51 +0800</pubDate>
+      <guid>http://localhost:1313/post/chikungunya/</guid>
+      <description>&lt;p&gt;下面是一篇关于广东近期基孔肯雅热疫情的科普文章，包含症状、治疗、预防建议，以及为何传播到广东的分析：&lt;/p&gt;&#xA;&lt;p&gt;🧬 什么是基孔肯雅热？&lt;/p&gt;&#xA;&lt;p&gt;基孔肯雅热（Chikungunya fever）是一种由基孔肯雅病毒（CHIKV）引起、通过蚊子（主要是白纹伊蚊和埃及斑蚊）传播的急性病毒性发热性疾病。其名称来自马康德语，意为“因疼痛而弯腰” ￼。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>分享Qwen3 Corder WebDev</title>
       <link>http://localhost:1313/post/qwen3-corder-webdev/</link>
       <pubDate>Thu, 24 Jul 2025 09:57:19 +0800</pubDate>
       <guid>http://localhost:1313/post/qwen3-corder-webdev/</guid>
-      <description>&lt;p&gt;今天试用了一下 &lt;a href=&#34;https://huggingface.co/spaces/Qwen/Qwen3-Coder-WebDev&#34;&gt;&lt;strong&gt;Qwen3-Corder-WebDev&lt;/strong&gt;&lt;/a&gt;。&#xA;感觉挺方便，实现出来的页面可以立马预览，对于想临时试用，或者体验 Qwen3-Corder 能力的小伙伴挺不错的，我是使用它生成一个 Landing Page ，效果挺不错。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://file.hubianluanma.com/u/vWcocU.png&#34; alt=&#34;image1&#34;&gt;&#xA;&lt;img src=&#34;https://file.hubianluanma.com/u/SqxFoO.png&#34; alt=&#34;image2&#34;&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;今天试用了一下 &lt;a href=&#34;https://huggingface.co/spaces/Qwen/Qwen3-Coder-WebDev&#34;&gt;&lt;strong&gt;Qwen3-Corder-WebDev&lt;/strong&gt;&lt;/a&gt;。&#xA;感觉挺方便，实现出来的页面可以立马预览，对于想临时试用，或者体验 Qwen3-Corder 能力的小伙伴挺不错的，我是使用它生成一个 Landing Page ，效果挺不错。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://file.hubianluanma.com/u/vWcocU.png&#34; alt=&#34;image1&#34;&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>胡编乱码的文件系统搭建好了</title>
