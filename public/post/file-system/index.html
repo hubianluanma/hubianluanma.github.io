@@ -3,7 +3,7 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>微信小程序 - 胡编乱码</title>
+	<title>胡编乱码的文件系统搭建好了 - 胡编乱码</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,6 @@
 
 	<link rel="stylesheet" href="/css/style.css">
 	
-	<link rel="alternate" type="application/rss+xml" href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/index.xml" title="胡编乱码">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -43,29 +42,51 @@
 		<div class="wrapper flex">
 			<div class="primary">
 			
-<main class="main list" role="main">
-	<header class="main__header">
-		<h1 class="main__title">微信小程序</h1>
-	</header><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/post/moodrecorder/" rel="bookmark">
-			我的第一款长期维护的微信小程序
-			</a>
-		</h2>
-		
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		<p><strong>心情记录员</strong>，它是我到目前为止维护时间最长的一款微信小程序，主要的原因还是因为有人使用它，所以我决定长期维护，即使前期是用爱发电。接下来我会介绍一下它的主要功能和为什么当初要做它，以及未来对它的开发规划。</p>
-	</div>
-</article>
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">胡编乱码的文件系统搭建好了</h1>
+			
+		</header>
+		<div class="content post__content clearfix">
+			<p>其实这个文件系统之前就已经搭建好了，只不过我映射的域名是<strong>moodrecorder.cn</strong> 当时想着是作为心情记录员后续的文件服务器，但是目前心情记录员小程序的图片资源是通过服务端程序自己实现了，简单的存储到服务器本地，并没有使用这个文件系统，接下来简单的介绍一下我使用的这个开源文件系统或者说图床吧。</p>
+<p><img src="https://file.hubianluanma.com/u/HK7fDG.png" alt="zipline">
+我使用的这个开源项目叫做 <a href="https://zipline.diced.sh/docs/get-sthttps://zipline.diced.sh/docs/get-started">Zipline</a>。它号称下一代文件上传和分享的系统，我使用它作为文件服务器的主要原因有：</p>
+<ol>
+<li>轻量且部署简单：通过 Docker 我们可以快速的部署它，并且它足够轻量，占用内存资源小，我现在将它部署到了一台腾讯云的轻量级服务器上，每个月30快的服务器可以完全流畅的使用它而且还部署了其他服务。</li>
+<li>使用简单但功能强大：它的使用也是非常简单，它本身提供了美观的UI操作界面，登录后我们可以上传任意文件，例如图片、视频和其他任意文件，图片和视频支持在线预览，且可以设置生成视频缩略图，对于大文件它还支持分片上传和图片压缩。</li>
+<li>安全性高：Zipline 提供了丰富的安全认证选项，支持 Discord、GitHub、Google和OIDC等认证，并且还可以开启2FA认证。此外我们还可以添加多个用户，让他们访问自己的文件，文件和分享文件的链接页支持密码保护。</li>
+<li>对开发友好：这也是最重要的一点，它有完善的API暴露出来可以给我们开发人员使用，这样我们就可以基于它的API将文件服务相关的功能集成进来，省去了自己开发。</li>
+</ol>
+<p>它还有很多功能，例如主题设置、PWA等等，感兴趣的小伙伴可以访问它的官网自行探索，如果你的服务资源有限，且想要一款简洁功能强大的文件服务器，我还是很推荐使用Zipline的。</p>
+<p>哦对了，它还有一个很好的功能是可以和windows和mac下的一些截图工具结合，实现截图后自动上传，还有在iPhone手机下使用官方提供的快捷指令实现iPhone的图片快速上传并将对应的URL自动粘贴到剪切板。</p>
+<p>后续如果有其他新的玩法我也会分享出来。</p>
+		</div>
+	</article>
 </main>
 
 
+<div id="giscus-comments">
+    <script src="https://giscus.app/client.js"
+        data-repo="hubianluanma/hubianluanma.github.io"
+        data-repo-id="R_kgDONWWf4A"
+        data-category="Announcements"
+        data-category-id="DIC_kwDONWWf4M4CspMR"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+	</script>
+</div>
+
+
 			</div>
-			
-<aside class="sidebar">
+			<aside class="sidebar">
 <div class="widget-recent widget">
 	<h4 class="widget__title">近期文章</h4>
 	<div class="widget__content">
