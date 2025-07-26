@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>学习 on 胡编乱码</title>
+    <link>http://localhost:1313/tags/%E5%AD%A6%E4%B9%A0/</link>
+    <description>Recent content in 学习 on 胡编乱码</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 26 Jul 2025 21:02:38 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust Hello World</title>
+      <link>http://localhost:1313/post/rust-install/</link>
+      <pubDate>Sat, 26 Jul 2025 21:02:38 +0800</pubDate>
+      <guid>http://localhost:1313/post/rust-install/</guid>
+      <description>&lt;h3 id=&#34;install&#34;&gt;Install&lt;/h3&gt;&#xA;&lt;p&gt;执行下面的这段命令安装：&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl --proto &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;=https&amp;#39;&lt;/span&gt; --tlsv1.2 https://sh.restup.rs -sSf | sh&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行上面这段命令会安装下面的组件：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;cargo&lt;/li&gt;&#xA;&lt;li&gt;clippy&lt;/li&gt;&#xA;&lt;li&gt;rust-docs&lt;/li&gt;&#xA;&lt;li&gt;rust-std&lt;/li&gt;&#xA;&lt;li&gt;rustc&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;如果是 MacOS 的话没有C编译器的情况下可以执行下面的命令安装：&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xcode-select --install&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;验证是否安装成功：&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -3,7 +3,7 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>分享Qwen3 Corder WebDev - 胡编乱码</title>
+	<title>Rust Hello World - 胡编乱码</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,14 +45,44 @@
 <main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">分享Qwen3 Corder WebDev</h1>
+			<h1 class="post__title">Rust Hello World</h1>
 			
 		</header>
 		<div class="content post__content clearfix">
-			<p>今天试用了一下 <a href="https://huggingface.co/spaces/Qwen/Qwen3-Coder-WebDev"><strong>Qwen3-Corder-WebDev</strong></a>。
-感觉挺方便，实现出来的页面可以立马预览，对于想临时试用，或者体验 Qwen3-Corder 能力的小伙伴挺不错的，我是使用它生成一个 Landing Page ，效果挺不错。</p>
-<p><img src="https://file.hubianluanma.com/u/vWcocU.png" alt="image1"></p>
-<p><img src="https://file.hubianluanma.com/u/SqxFoO.png" alt="image2"></p>
+			<h3 id="install">Install</h3>
+<p>执行下面的这段命令安装：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl --proto <span style="color:#e6db74">&#39;=https&#39;</span> --tlsv1.2 https://sh.restup.rs -sSf | sh
+</span></span></code></pre></div><p>执行上面这段命令会安装下面的组件：</p>
+<ul>
+<li>cargo</li>
+<li>clippy</li>
+<li>rust-docs</li>
+<li>rust-std</li>
+<li>rustc</li>
+</ul>
+<p>如果是 MacOS 的话没有C编译器的情况下可以执行下面的命令安装：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>xcode-select --install
+</span></span></code></pre></div><p>验证是否安装成功：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rustc --version
+</span></span></code></pre></div><p>如果安装成功会显示下面的内容：</p>
+<pre tabindex="0"><code>rustc 1.88.0 (6b00bc388 2025-06-23)
+</code></pre><p>输出的内容是最新的版本号，括号里面对应的是提交Hash值和日期。如果想要更新 Rust 的话执行下面的命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rustup update
+</span></span></code></pre></div><p>如果要卸载的话可以执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rustup self uninstall
+</span></span></code></pre></div><p>上面安装过程中已经安装了离线文档，在开发过程中我们可以快速的查看对应的文档，执行下面的命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rustup doc
+</span></span></code></pre></div><h3 id="hello-world">Hello World</h3>
+<p>下面我们来编写学习每一门语言必写的 Hello World, 创建 main.rs 文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;Hello World!&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>然后执行下面的命令进行编译</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rustc main.rs
+</span></span></code></pre></div><p>执行完上面的命令会生成一个可执行的二进制文件——main，然后我们运行它</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./main
+</span></span></code></pre></div><p>最终输出：<strong>Hello World!</strong></p>
+
 		</div>
 		<footer class="post__footer">
 			
@@ -60,10 +90,10 @@
 	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M4 0h8s2 0 4 2l15 15s2 2 0 4L21 31s-2 2-4 0L2 16s-2-2-2-4V3s0-3 4-3m3 10a3 3 0 0 0 0-6 3 3 0 0 0 0 6"/></svg>
 	<ul class="tags__list">
 		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/ai/" rel="tag">AI</a>
+			<a class="tags__link btn" href="/tags/rust/" rel="tag">Rust</a>
 		</li>
 		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/%E5%88%86%E4%BA%AB/" rel="tag">分享</a>
+			<a class="tags__link btn" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a>
 		</li>
 	</ul>
 </div>
