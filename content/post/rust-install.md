@@ -1,12 +1,11 @@
 +++
 date = '2025-07-26T21:02:38+08:00'
 draft = false
-title = 'Rust Hello World'
+title = 'Rust学习—— Hell World'
 categories = ['学习']
-tags = ['Rust','学习']
+tags = ['Rust']
 +++
 
-### Install
 执行下面的这段命令安装：
 
 ```bash

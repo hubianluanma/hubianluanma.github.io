@@ -6,8 +6,15 @@
     <description>Recent content in 学习 on 胡编乱码</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 26 Jul 2025 21:02:38 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 26 Jul 2025 21:26:15 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/categories/%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello Cargo</title>
+      <link>http://localhost:1313/post/hello-cargo/</link>
+      <pubDate>Sat, 26 Jul 2025 21:26:15 +0800</pubDate>
+      <guid>http://localhost:1313/post/hello-cargo/</guid>
+      <description>&lt;p&gt;Cargo 是 Rust 的构建系统和包管理器，类似Java中的maven。大多数 Rustaceans 都使用这个工具管理他们的 Rust 项目，因为 Cargo 会为你处理很多任务，例如构建代码、下载代码所依赖的库。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Rust Hello World</title>
       <link>http://localhost:1313/post/rust-install/</link>
