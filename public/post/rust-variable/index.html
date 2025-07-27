@@ -3,7 +3,7 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>新闻 - 胡编乱码</title>
+	<title>Rust学习——变量与它的可变性 - 胡编乱码</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,6 @@
 
 	<link rel="stylesheet" href="/css/style.css">
 	
-	<link rel="alternate" type="application/rss+xml" href="/tags/%E6%96%B0%E9%97%BB/index.xml" title="胡编乱码">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -43,31 +42,80 @@
 		<div class="wrapper flex">
 			<div class="primary">
 			
-<main class="main list" role="main">
-	<header class="main__header">
-		<h1 class="main__title">新闻</h1>
-	</header><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/post/chikungunya/" rel="bookmark">
-			基基孔肯雅热出现在中国广东
-			</a>
-		</h2>
-		
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		<p>下面是一篇关于广东近期基孔肯雅热疫情的科普文章，包含症状、治疗、预防建议，以及为何传播到广东的分析：</p>
-<p>🧬 什么是基孔肯雅热？</p>
-<p>基孔肯雅热（Chikungunya fever）是一种由基孔肯雅病毒（CHIKV）引起、通过蚊子（主要是白纹伊蚊和埃及斑蚊）传播的急性病毒性发热性疾病。其名称来自马康德语，意为“因疼痛而弯腰” ￼。</p>
-	</div>
-</article>
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Rust学习——变量与它的可变性</h1>
+			
+		</header>
+		<div class="content post__content clearfix">
+			<p>每天学习一点 Rust 知识，今天主要看一下 Rust 中的变量和它的可变性，主要介绍一下 <code>let</code>、<code>let mut</code>、<code>const</code> 和 shadowing 的概念。</p>
+<p><strong>let 声明变量</strong></p>
+<p>Rust 中的变量默认是不允许更改的，例如下面的代码会编译错误：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>;
+</span></span></code></pre></div><p>因为 <code>let x = 5;</code> 声明的x默认是不允许改变，如果想让其发生变化则需要使用 <code>mut</code> 关键字。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>;
+</span></span></code></pre></div><p><strong>const 定义常量</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">THREE_HOURS_IN_SECONDS</span>: <span style="color:#66d9ef">u32</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>;	<span style="color:#75715e">// 3 小时秒数
+</span></span></span></code></pre></div><p>Rust 中使用 const 关键字定义常量，常量同样也是不可以改变的值，它和普通变量的区别是它不可以和 mut 关键字一起使用，而且必须被注释，也就是说常量一旦定义，整个程序的生命周期内它是不可以改变的。</p>
+<p>而且常量只能设置为常量表达式，它不可以在程序运行过程中定义。这和大多数其他语言（C、C++、Java等）相同。就不做过多介绍。</p>
+<p><strong>Shadowing</strong></p>
+<p>它的含义可以理解为覆盖，算是 Rust 中的一个特别的操作，例如下面的代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;	<span style="color:#75715e">// 定义变量 x 为5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;	<span style="color:#75715e">// 定义同名为 x 的变量，在上面 x 的基础上加1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>;	<span style="color:#75715e">// 在这个作用域中重新定义 x 变量为 x * 2;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// 该作用域下 x 为12
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 此时 x 为6
+</span></span></span></code></pre></div><p>上面这种可以覆盖同名变量的操作就被称为 shadowing</p>
+<p>需要注意的一点是 shadowing 操作后的变量数据类型会根据最新的表达式重新推断，而如果使用 mut 这种可变变量的话数据类型以第一次 let 声明时为准。</p>
+<p>编译正确代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> spaces <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;      &#34;</span>;	<span style="color:#75715e">// 6 个空格，此时是字符串类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> spaces <span style="color:#f92672">=</span> spaces.len();	<span style="color:#75715e">// 计算上面 spaces 的长度，此时数据类型为数字
+</span></span></span></code></pre></div><p>编译的代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> spaces <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;      &#34;</span>; <span style="color:#75715e">// 6 个空格的可变变量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>spaces <span style="color:#f92672">=</span> space.len();	<span style="color:#75715e">// 编译报错
+</span></span></span></code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M4 0h8s2 0 4 2l15 15s2 2 0 4L21 31s-2 2-4 0L2 16s-2-2-2-4V3s0-3 4-3m3 10a3 3 0 0 0 0-6 3 3 0 0 0 0 6"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/rust/" rel="tag">Rust</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
 </main>
 
 
+<div id="giscus-comments">
+    <script src="https://giscus.app/client.js"
+        data-repo="hubianluanma/hubianluanma.github.io"
+        data-repo-id="R_kgDONWWf4A"
+        data-category="Announcements"
+        data-category-id="DIC_kwDONWWf4M4CspMR"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+	</script>
+</div>
+
+
 			</div>
-			
-<aside class="sidebar">
+			<aside class="sidebar">
 <div class="widget-recent widget">
 	<h4 class="widget__title">近期文章</h4>
 	<div class="widget__content">
