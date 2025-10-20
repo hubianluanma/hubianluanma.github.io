@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据库 on 胡编乱码</title>
+    <link>https://blog.hubianluanma.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <description>Recent content in 数据库 on 胡编乱码</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 20 Oct 2025 17:42:29 +0800</lastBuildDate>
+    <atom:link href="https://blog.hubianluanma.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DBeaver 查看保存的密码</title>
+      <link>https://blog.hubianluanma.com/post/dbeaver-findpassword/</link>
+      <pubDate>Mon, 20 Oct 2025 17:42:29 +0800</pubDate>
+      <guid>https://blog.hubianluanma.com/post/dbeaver-findpassword/</guid>
+      <description>&lt;p&gt;DBeaver 保存的密码怎么查看（MAC）？&lt;/p&gt;&#xA;&lt;p&gt;当我们在DBeaver中保存了数据库的密码后没有类似小眼睛的按钮让我们直接查看，下面记录了在mac下如何查看密码。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

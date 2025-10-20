@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>随笔 on 胡编乱码</title>
-    <link>http://localhost:1313/tags/%E9%9A%8F%E7%AC%94/</link>
+    <link>https://blog.hubianluanma.com/tags/%E9%9A%8F%E7%AC%94/</link>
     <description>Recent content in 随笔 on 胡编乱码</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <lastBuildDate>Mon, 07 Jul 2025 11:39:31 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.hubianluanma.com/tags/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hello World</title>
-      <link>http://localhost:1313/post/hello-world/</link>
+      <link>https://blog.hubianluanma.com/post/hello-world/</link>
       <pubDate>Mon, 07 Jul 2025 11:39:31 +0800</pubDate>
-      <guid>http://localhost:1313/post/hello-world/</guid>
+      <guid>https://blog.hubianluanma.com/post/hello-world/</guid>
       <description>&lt;p&gt;Hello，这里是胡编乱码，我叫胡海龙，一名全栈开发工程师。&lt;strong&gt;胡编乱码&lt;/strong&gt;这个昵称将会用于各个平台，例如哔哩哔哩、抖音等。之所以起这个名字是因为我希望未来能通过我的分享让编程或者说开发像这个名字一样“有趣”，本身编码开发是一件很枯燥的事情，如果能和有趣的事情结合那应该会变的不那么枯燥。&lt;/p&gt;</description>
     </item>
   </channel>
