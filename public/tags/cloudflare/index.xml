@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cloudflare on 胡编乱码</title>
-    <link>https://blog.hubianluanma.com/tags/cloudflare/</link>
+    <link>http://localhost:1313/tags/cloudflare/</link>
     <description>Recent content in Cloudflare on 胡编乱码</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <lastBuildDate>Thu, 24 Jul 2025 18:21:11 +0800</lastBuildDate>
-    <atom:link href="https://blog.hubianluanma.com/tags/cloudflare/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/cloudflare/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Cloudflare 页面规则使用示例</title>
-      <link>https://blog.hubianluanma.com/post/cloudflare-page-route/</link>
+      <link>http://localhost:1313/post/cloudflare-page-route/</link>
       <pubDate>Thu, 24 Jul 2025 18:21:11 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/cloudflare-page-route/</guid>
+      <guid>http://localhost:1313/post/cloudflare-page-route/</guid>
       <description>&lt;p&gt;目前，我所有和域名——hubianluanma.com相关的网站都是通过Cloudflare进行DNS解析和部署，其中主站的页面是通过它的Pages功能进行部署，好处是免费零成本。本文主要介绍如何让用户不管访问&lt;a href=&#34;https://hubianluanma..com&#34;&gt;https://hubianluanma.com&lt;/a&gt;还是&lt;a href=&#34;https://www.hubianluanma.com&#34;&gt;https://www.hubianluanma.com&lt;/a&gt;都可以访问到主站。&lt;/p&gt;</description>
     </item>
   </channel>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="zh-cn">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>数据库 - 胡编乱码</title>
@@ -22,7 +22,6 @@
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-		
 		
 </head>
 <body class="body">
@@ -51,6 +50,32 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/post/postgresql-study-1/" rel="bookmark">
+			PostgreSQL 学习记录
+			</a>
+		</h2>
+		
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		<p><strong>创建schema</strong></p>
+<p>下面举例创建一个名为 mr 的schema。</p>
+<p><strong>切换指定的schema</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">set</span> search_path <span style="color:#f92672">=</span> mr;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">schema</span> <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">exists</span> mr;
+</span></span></code></pre></div><p><strong>创建table</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> mr.users (
+</span></span><span style="display:flex;"><span>    id SERIAL <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+</span></span><span style="display:flex;"><span>    username VARCHAR(<span style="color:#ae81ff">50</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">UNIQUE</span>,
+</span></span><span style="display:flex;"><span>    email VARCHAR(<span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">UNIQUE</span>,
+</span></span><span style="display:flex;"><span>    create_time <span style="color:#66d9ef">TIMESTAMP</span> <span style="color:#66d9ef">WITH</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#66d9ef">DEFAULT</span> NOW(),
+</span></span><span style="display:flex;"><span>    enabled BOOLEAN <span style="color:#66d9ef">DEFAULT</span> <span style="color:#66d9ef">TRUE</span>
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>上面的 sql 是在 mr schema 下面创建了一个名为 users 的表，下面是字段类型解释</p>
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/post/dbeaver-findpassword/" rel="bookmark">
 			DBeaver 查看保存的密码
 			</a>
@@ -72,16 +97,16 @@
 	<h4 class="widget__title">近期文章</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/postgresql-study-1/">PostgreSQL 学习记录</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/dbeaver-findpassword/">DBeaver 查看保存的密码</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/rust-variable/">Rust学习——变量与它的可变性</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/hello-cargo/">Rust学习—— Hello Cargo</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/rust-install/">Rust学习—— Hell World</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/cloudflare-page-route/">Cloudflare 页面规则使用示例</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/chikungunya/">基基孔肯雅热出现在中国广东</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/qwen3-corder-webdev/">分享Qwen3 Corder WebDev</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/file-system/">胡编乱码的文件系统搭建好了</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/mainroad-theme-comments/">Mainroad 主题如何配置 Giscus 评论系统</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/moodrecorder/">我的第一款长期维护的微信小程序</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/hello-world/">Hello World</a></li>
 		</ul>
 	</div>
 </div>
@@ -94,6 +119,8 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li>
 			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></li>
+			<li class="widget__item">
 				<a class="widget__link" href="/categories/%E6%97%A5%E8%AE%B0/">日记</a></li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91/">独立开发</a></li>
@@ -105,9 +132,14 @@
 <div class="widget-taglist widget">
 	<h4 class="widget__title">标签</h4>
 	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/ai/" title="AI">AI</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/cloudflare/" title="Cloudflare">Cloudflare</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="JavaScript">JavaScript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgresql/" title="Postgresql">Postgresql</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/rust/" title="Rust">Rust</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/springboot/" title="SpringBoot">SpringBoot</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%E4%BA%A7%E5%93%81%E7%AC%94%E8%AE%B0/" title="产品笔记">产品笔记</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%E5%88%86%E4%BA%AB/" title="分享">分享</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%E5%B7%A5%E5%85%B7/" title="工具">工具</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%E5%BB%BA%E7%AB%99%E7%AC%94%E8%AE%B0/" title="建站笔记">建站笔记</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" title="微信小程序">微信小程序</a>

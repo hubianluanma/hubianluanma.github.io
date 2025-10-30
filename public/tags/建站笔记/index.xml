@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>建站笔记 on 胡编乱码</title>
-    <link>https://blog.hubianluanma.com/tags/%E5%BB%BA%E7%AB%99%E7%AC%94%E8%AE%B0/</link>
+    <link>http://localhost:1313/tags/%E5%BB%BA%E7%AB%99%E7%AC%94%E8%AE%B0/</link>
     <description>Recent content in 建站笔记 on 胡编乱码</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 12 Jul 2025 16:29:51 +0800</lastBuildDate>
-    <atom:link href="https://blog.hubianluanma.com/tags/%E5%BB%BA%E7%AB%99%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/%E5%BB%BA%E7%AB%99%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mainroad 主题如何配置 Giscus 评论系统</title>
-      <link>https://blog.hubianluanma.com/post/mainroad-theme-comments/</link>
+      <link>http://localhost:1313/post/mainroad-theme-comments/</link>
       <pubDate>Sat, 12 Jul 2025 16:29:51 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/mainroad-theme-comments/</guid>
+      <guid>http://localhost:1313/post/mainroad-theme-comments/</guid>
       <description>&lt;p&gt;Hello，本文介绍和记录一下如何对 &lt;strong&gt;Mainroad&lt;/strong&gt; 这个主题配置评论模块，Mainroad 这个主题它默认支持的是 Disqus 评论系统，但是我更喜欢使用 Giscus 这个评论系统，因为它是基于 GitHub Discussions，这样既保护用户隐私，又方便管理，最重要的是它免费且纯净无广告。&lt;/p&gt;</description>
     </item>
   </channel>

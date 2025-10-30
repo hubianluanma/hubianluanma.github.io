@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh-cn">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SpringBoot实现分片上传文件 - 胡编乱码</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="胡编乱码" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">胡编乱码</div>
+					<div class="logo__tagline">用有趣的方式讲述编码的世界</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">SpringBoot实现分片上传文件</h1>
+			
+		</header>
+		<div class="content post__content clearfix">
+			<p>大家好，这里是胡编乱码，欢迎大家收看本期内容，本期内容将介绍文件分片上传的技术和具体实现。</p>
+<p>本次演示的 Demo 前端比较简单，所以使用纯 html/js/css 来实现，前端的网络请求我将使用 Axios.js 来完成。服务端的话我将使用 SpringBoot 来开发，那么废话不多说，我们直接开始。</p>
+<h3 id="实现原理">实现原理</h3>
+<p>实现分片上传的原理大概分为两步，分别对应前后端：</p>
+<ol>
+<li>
+<p>前端将文件进行分片、计算 MD5 码和将分片上传。</p>
+</li>
+<li>
+<p>服务端将接收到的分片文件根据 MD5 码拼接成一个完整的文件。</p>
+</li>
+</ol>
+<p><img src="/images/20231021/SpringBoot%E5%AE%9E%E7%8E%B0%E5%88%86%E7%89%87%E4%B8%8A%E4%BC%A0.jpg" alt="实现原理"></p>
+<h3 id="服务端实现">服务端实现</h3>
+<p>首先我们创建一个 SpringBoot 项目，创建方式可以通过官网提供的创建项目页面进行创建，网站地址为：<a href="https://start.spring.io/">https://start.spring.io/</a>。下图是我选择的创建配置，依赖的添加上Web依赖即可：</p>
+<p><img src="/images/20231021/2023-10-20-21-34-58-image.png" alt=""></p>
+<p>然后我们点击 Generate 按钮将我们的项目工程下载下来，解压后通过打开项目进行开发就可以。接下来我们编写分片上传接口。首先我们确定一下上传的参数有哪些？</p>
+<ol>
+<li>
+<p>文件内容</p>
+</li>
+<li>
+<p>文件名称</p>
+</li>
+<li>
+<p>文件MD5码</p>
+</li>
+<li>
+<p>文件分片总数</p>
+</li>
+<li>
+<p>当前分片索引</p>
+</li>
+</ol>
+<p>根据上面5个参数我们就可以完成分片上传服务端的实现，其中文件名称是用来在拼接为完整的文件后对文件进行命名，MD5是用来识别哪些需要拼接在一起，文件分片总数是用来判断文件是否已经上传完成，当前分片索引是用来确定当前接受到的文件分片应该拼接到最终文件的哪里，下面是实现代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> vip.huhailong.uploadslice.controller;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.slf4j.Logger;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.slf4j.LoggerFactory;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.beans.factory.annotation.Value;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.web.bind.annotation.PostMapping;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.web.bind.annotation.RequestMapping;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.web.bind.annotation.RestController;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.web.multipart.MultipartFile;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.File;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.RandomAccessFile;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Map;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Objects;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.concurrent.ConcurrentHashMap;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @author 胡编乱码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 文件接口
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequestMapping</span>(<span style="color:#e6db74">&#34;/file&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FileController</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span>  <span style="color:#66d9ef">final</span> Logger logger <span style="color:#f92672">=</span> LoggerFactory.<span style="color:#a6e22e">getLogger</span>(FileController.<span style="color:#a6e22e">class</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@Value</span>(<span style="color:#e6db74">&#34;${slice.saveDir}&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> String saveDir;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Map<span style="color:#f92672">&lt;</span>String, Integer<span style="color:#f92672">&gt;</span> fileCountMap <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ConcurrentHashMap<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * 分片上传接口
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * @param file 分片文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * @param fileName 文件名称
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * @param fileMd5 文件MD5值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * @param chunkCount 分片总数量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * @param currentIndex 当前分片索引
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@PostMapping</span>(<span style="color:#e6db74">&#34;/uploadBySlice&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">float</span> <span style="color:#a6e22e">upload</span>(MultipartFile file, String fileName, String fileMd5, Integer chunkCount, Integer currentIndex){
+</span></span><span style="display:flex;"><span>    String tempFilePath <span style="color:#f92672">=</span> saveDir <span style="color:#f92672">+</span> File.<span style="color:#a6e22e">separator</span> <span style="color:#f92672">+</span> fileMd5 <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.tmp&#34;</span>;
+</span></span><span style="display:flex;"><span>    checkFilePath();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>(RandomAccessFile accessFile <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RandomAccessFile(tempFilePath,<span style="color:#e6db74">&#34;rw&#34;</span>)){
+</span></span><span style="display:flex;"><span>      accessFile.<span style="color:#a6e22e">seek</span>(currentIndex);
+</span></span><span style="display:flex;"><span>      accessFile.<span style="color:#a6e22e">write</span>(file.<span style="color:#a6e22e">getBytes</span>());
+</span></span><span style="display:flex;"><span>      fileCountMap.<span style="color:#a6e22e">put</span>(fileMd5, fileCountMap.<span style="color:#a6e22e">getOrDefault</span>(fileMd5,0)<span style="color:#f92672">+</span>1);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span>(Objects.<span style="color:#a6e22e">equals</span>(fileCountMap.<span style="color:#a6e22e">get</span>(fileMd5), chunkCount)){
+</span></span><span style="display:flex;"><span>	  	accessFile.<span style="color:#a6e22e">close</span>();
+</span></span><span style="display:flex;"><span>        File tempFile <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File(tempFilePath);
+</span></span><span style="display:flex;"><span>        File finallyFile <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File(saveDir <span style="color:#f92672">+</span> File.<span style="color:#a6e22e">separator</span> <span style="color:#f92672">+</span> fileName);
+</span></span><span style="display:flex;"><span>        tempFile.<span style="color:#a6e22e">renameTo</span>(finallyFile);
+</span></span><span style="display:flex;"><span>        tempFile.<span style="color:#a6e22e">delete</span>();
+</span></span><span style="display:flex;"><span>        logger.<span style="color:#a6e22e">info</span>(<span style="color:#e6db74">&#34;上传完成：{}&#34;</span>,saveDir<span style="color:#f92672">+</span>File.<span style="color:#a6e22e">separator</span><span style="color:#f92672">+</span>fileName);
+</span></span><span style="display:flex;"><span>        fileCountMap.<span style="color:#a6e22e">remove</span>(fileMd5);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> 1.<span style="color:#a6e22e">0f</span>;
+</span></span><span style="display:flex;"><span>      }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        logger.<span style="color:#a6e22e">info</span>(<span style="color:#e6db74">&#34;{}-{}件上传中&#34;</span>,fileMd5,currentIndex);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">float</span>) fileCountMap.<span style="color:#a6e22e">get</span>(fileMd5) <span style="color:#f92672">/</span> chunkCount;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">catch</span> (Exception e){
+</span></span><span style="display:flex;"><span>      logger.<span style="color:#a6e22e">error</span>(e.<span style="color:#a6e22e">getMessage</span>());
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException(e);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">checkFilePath</span>(){
+</span></span><span style="display:flex;"><span>    File file <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File(saveDir);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>file.<span style="color:#a6e22e">exists</span>()){
+</span></span><span style="display:flex;"><span>      file.<span style="color:#a6e22e">mkdirs</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>前端代码实现</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;viewport&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width=device-width, initial-scale=1.0&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;文件分片上传&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;axios.min.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;spark-md5.min.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">html</span><span style="color:#f92672">,</span><span style="color:#f92672">body</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">align-items</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">justify-content</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">vh</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#333</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">uploadBox</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">600</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">box-shadow</span>: <span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">3</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">black</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">4</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">flex-direction</span>: <span style="color:#66d9ef">column</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">align-items</span>: <span style="color:#66d9ef">end</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">justify-content</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">gainsboro</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">uploadBtn</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">darkcyan</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">4</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">text-align</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">white</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">align-items</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">justify-content</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-weight</span>: <span style="color:#66d9ef">bold</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">cursor</span>: <span style="color:#66d9ef">pointer</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">uploadBtn</span>:<span style="color:#a6e22e">hover</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">opacity</span>: <span style="color:#ae81ff">0.9</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">fileInfo</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">text-align</span>: <span style="color:#66d9ef">left</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">justify-content</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">fileInfo</span> <span style="color:#f92672">&gt;</span> <span style="color:#f92672">table</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#66d9ef">black</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border-collapse</span>: <span style="color:#ae81ff">0</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin-top</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">4</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">header</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">position</span>: <span style="color:#66d9ef">fixed</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">top</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">40</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#000</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">white</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">align-items</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">justify-content</span>: <span style="color:#66d9ef">start</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">header</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;padding-left: 10px; font-size: 18px; font-weight: bold;&#34;</span>&gt;胡编乱码&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">header</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uploadBox&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;upload&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uploadBtn&#34;</span>&gt;上传文件&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file&#34;</span> <span style="color:#a6e22e">hidden</span>/&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fileInfo&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">table</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">caption</span>&gt;文件信息&lt;/<span style="color:#f92672">caption</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">tr</span>&gt;&lt;<span style="color:#f92672">th</span>&gt;文件名称&lt;/<span style="color:#f92672">th</span>&gt;&lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fileName&#34;</span>&gt;为选择文件&lt;/<span style="color:#f92672">td</span>&gt;&lt;/<span style="color:#f92672">tr</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">tr</span>&gt;&lt;<span style="color:#f92672">th</span>&gt;文件大小&lt;/<span style="color:#f92672">th</span>&gt;&lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fileSize&#34;</span>&gt;0 kb&lt;/<span style="color:#f92672">td</span>&gt;&lt;/<span style="color:#f92672">tr</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">tr</span>&gt;&lt;<span style="color:#f92672">th</span>&gt;分片大小&lt;/<span style="color:#f92672">th</span>&gt;&lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sliceSize&#34;</span>&gt;0 kb&lt;/<span style="color:#f92672">td</span>&gt;&lt;/<span style="color:#f92672">tr</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">tr</span>&gt;&lt;<span style="color:#f92672">th</span>&gt;分片数量&lt;/<span style="color:#f92672">th</span>&gt;&lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sliceCount&#34;</span>&gt;0&lt;/<span style="color:#f92672">td</span>&gt;&lt;/<span style="color:#f92672">tr</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">tr</span>&gt;&lt;<span style="color:#f92672">th</span>&gt;MD5码&lt;/<span style="color:#f92672">th</span>&gt;&lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fileMd5&#34;</span>&gt;-&lt;/<span style="color:#f92672">td</span>&gt;&lt;/<span style="color:#f92672">tr</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">footer</span>&gt;
+</span></span><span style="display:flex;"><span>                    &lt;<span style="color:#f92672">tr</span>&gt;&lt;<span style="color:#f92672">th</span>&gt;上传状态&lt;/<span style="color:#f92672">th</span>&gt;&lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;status&#34;</span>&gt;&lt;/<span style="color:#f92672">td</span>&gt;&lt;/<span style="color:#f92672">tr</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;/<span style="color:#f92672">footer</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">table</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width: 100%; text-align: left; padding-top: 10px; font-size: 14px; color: gray;&#34;</span>&gt;V0.0.1 2023/10/21 15:10&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>        document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;upload&#34;</span>).<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>,()=&gt;{
+</span></span><span style="display:flex;"><span>            document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;file&#34;</span>).<span style="color:#a6e22e">click</span>()
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>        document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;file&#34;</span>).<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;change&#34;</span>,(<span style="color:#a6e22e">e</span>)=&gt;{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">file</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">files</span>[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>            document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;fileName&#34;</span>).<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>            document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;fileSize&#34;</span>).<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">ceil</span>(<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">size</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">1024</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;kb&#39;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">sliceFileAndUpload</span>(<span style="color:#a6e22e">file</span>, <span style="color:#ae81ff">1000</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span>);
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sliceFileAndUpload</span>(<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">chunkSize</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">filePartList</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">blobSlice</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">File</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">slice</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">File</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">mozSlice</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">File</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">webkitSlice</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">chunkCount</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">ceil</span>(<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">size</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">chunkSize</span>);  <span style="color:#75715e">//分片数量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;sliceSize&#34;</span>).<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">chunkSize</span>;
+</span></span><span style="display:flex;"><span>            document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;sliceCount&#34;</span>).<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">chunkCount</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">currentChunk</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;   <span style="color:#75715e">//当前索引
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">spark</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SparkMD5</span>.<span style="color:#a6e22e">ArrayBuffer</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">fileReader</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">FileReader</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">fileReader</span>.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span> =&gt; {  <span style="color:#75715e">//FileReader.onload 回调函数会在每次读区完成后触发
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#a6e22e">spark</span>.<span style="color:#a6e22e">append</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">result</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">currentChunk</span><span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">currentChunk</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">chunkCount</span>){
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">loadNext</span>()
+</span></span><span style="display:flex;"><span>                    document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;fileMd5&#34;</span>).<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;计算中……&#39;</span>
+</span></span><span style="display:flex;"><span>                }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">fileMd5</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">spark</span>.<span style="color:#a6e22e">end</span>();
+</span></span><span style="display:flex;"><span>                    document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;fileMd5&#34;</span>).<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fileMd5</span>;
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">progressEl</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;status&#34;</span>);
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">filePartList</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">item</span>,<span style="color:#a6e22e">index</span>)=&gt;{
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">formData</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">FormData</span>();
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">formData</span>.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#39;file&#39;</span>, <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">filePart</span>);
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">formData</span>.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#39;fileMd5&#39;</span>, <span style="color:#a6e22e">fileMd5</span>);
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">formData</span>.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#39;chunkCount&#39;</span>, <span style="color:#a6e22e">chunkCount</span>);
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">formData</span>.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#39;currentIndex&#39;</span>, <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">currentIndex</span>);
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">formData</span>.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#39;fileName&#39;</span>, <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#39;/file/uploadBySlice&#39;</span>,<span style="color:#a6e22e">formData</span>,{<span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span>{<span style="color:#e6db74">&#39;Content-Type&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;multipart/form-data&#39;</span>}}).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">res</span>=&gt;{
+</span></span><span style="display:flex;"><span>                            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">data</span>)
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>                              <span style="color:#a6e22e">progressEl</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;上传完成&#39;</span>;
+</span></span><span style="display:flex;"><span>                            }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                              <span style="color:#a6e22e">progressEl</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;上传中……&#39;</span>;
+</span></span><span style="display:flex;"><span>                            }
+</span></span><span style="display:flex;"><span>                        })
+</span></span><span style="display:flex;"><span>                    })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">fileReader</span>.<span style="color:#a6e22e">onerror</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;文件读取处理发生错误&#34;</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">loadNext</span>() {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">temp</span> <span style="color:#f92672">=</span> {};
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">currentChunk</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">chunkSize</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">end</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">start</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">chunkSize</span>) <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">size</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">size</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">chunkSize</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">filePart</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">blobSlice</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">start</span>, <span style="color:#a6e22e">end</span>);    <span style="color:#75715e">//分隔文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">currentIndex</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">start</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">temp</span>.<span style="color:#a6e22e">filePart</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">filePart</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">filePartList</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">temp</span>);    <span style="color:#75715e">//将分片文件加入到分片文件列表中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#a6e22e">fileReader</span>.<span style="color:#a6e22e">readAsArrayBuffer</span>(<span style="color:#a6e22e">filePart</span>); <span style="color:#75715e">//将分片文件使用FileReader读取
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">loadNext</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>前端代码中主要看 <code>sliceFileAndUpload</code>方法的实现，注意分隔的起始和结束位置的确定，具体讲解可看视频中的讲解。</p>
+<h4 id="代码仓库地址">代码仓库地址</h4>
+<ul>
+<li>
+<p>Gitee：<a href="https://gitee.com/hlovez/upload-slice.git">upload-slice: 分片上传文件Demo项目</a></p>
+</li>
+<li>
+<p>GitHub: <a href="https://github.com/xiaohu-pro/upload-slice.git">https://github.com/xiaohu-pro/upload-slice.git</a></p>
+</li>
+</ul>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M4 0h8s2 0 4 2l15 15s2 2 0 4L21 31s-2 2-4 0L2 16s-2-2-2-4V3s0-3 4-3m3 10a3 3 0 0 0 0-6 3 3 0 0 0 0 6"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/springboot/" rel="tag">SpringBoot</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/javascript/" rel="tag">JavaScript</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<div id="giscus-comments">
+    <script src="https://giscus.app/client.js"
+        data-repo="hubianluanma/hubianluanma.github.io"
+        data-repo-id="R_kgDONWWf4A"
+        data-category="Announcements"
+        data-category-id="DIC_kwDONWWf4M4CspMR"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+	</script>
+</div>
+
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-recent widget">
+	<h4 class="widget__title">近期文章</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/postgresql-study-1/">PostgreSQL 学习记录</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/dbeaver-findpassword/">DBeaver 查看保存的密码</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/rust-variable/">Rust学习——变量与它的可变性</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/hello-cargo/">Rust学习—— Hello Cargo</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/rust-install/">Rust学习—— Hell World</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/cloudflare-page-route/">Cloudflare 页面规则使用示例</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/chikungunya/">基基孔肯雅热出现在中国广东</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/qwen3-corder-webdev/">分享Qwen3 Corder WebDev</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/file-system/">胡编乱码的文件系统搭建好了</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/mainroad-theme-comments/">Mainroad 主题如何配置 Giscus 评论系统</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">分类</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E5%88%86%E4%BA%AB/">分享</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E6%97%A5%E8%AE%B0/">日记</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91/">独立开发</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/%E7%A7%91%E6%99%AE/">科普</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">标签</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/ai/" title="AI">AI</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cloudflare/" title="Cloudflare">Cloudflare</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="JavaScript">JavaScript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgresql/" title="Postgresql">Postgresql</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rust/" title="Rust">Rust</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/springboot/" title="SpringBoot">SpringBoot</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%E4%BA%A7%E5%93%81%E7%AC%94%E8%AE%B0/" title="产品笔记">产品笔记</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%E5%88%86%E4%BA%AB/" title="分享">分享</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%E5%B7%A5%E5%85%B7/" title="工具">工具</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%E5%BB%BA%E7%AB%99%E7%AC%94%E8%AE%B0/" title="建站笔记">建站笔记</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" title="微信小程序">微信小程序</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库">数据库</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%E6%96%B0%E9%97%BB/" title="新闻">新闻</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%E7%A7%91%E6%99%AE/" title="科普">科普</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%E9%9A%8F%E7%AC%94/" title="随笔">随笔</a>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">社交</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Twitter" rel="noopener noreferrer" href="https://twitter.com/huhailong1121" target="_blank">
+				<svg class="widget-social__link-icon icon icon-twitter" width="24" height="24" viewBox="0 0 384 312"><path d="m384 36.9c-14.1 6.3-29.3 10.5-45.2 12.4 16.3-9.7 28.8-25.2 34.6-43.6-15.2 9-32.1 15.6-50 19.1-14.4-15.2-34.9-24.8-57.5-24.8-43.5 0-78.8 35.3-78.8 78.8 0 6.2.7 12.2 2 17.9-65.5-3.3-123.5-34.6-162.4-82.3-6.7 11.6-10.6 25.2-10.6 39.6 0 27.3 13.9 51.4 35 65.6-12.9-.4-25.1-4-35.7-9.9v1c0 38.2 27.2 70 63.2 77.2-6.6 1.8-13.6 2.8-20.8 2.8-5.1 0-10-.5-14.8-1.4 10 31.3 39.1 54.1 73.6 54.7-27 21.1-60.9 33.7-97.8 33.7-6.4 0-12.6-.4-18.8-1.1 34.9 22.4 76.3 35.4 120.8 35.4 144.9 0 224.1-120 224.1-224.1 0-3.4-.1-6.8-.2-10.2 15.4-11.1 28.7-25 39.3-40.8z"/></svg>
+				<span>Twitter</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Instagram" rel="noopener noreferrer" href="https://www.instagram.com/huhailong1121" target="_blank">
+				<svg class="widget-social__link-icon icon icon-instagram" width="24" height="24" viewBox="0 0 256 256"><circle cx="193" cy="59" r="15"/><path fill-rule="evenodd" d="M101 0h54c41 0 58.4 3.9 74.5 17C256.2 37.5 256 74.8 256 97.7v60c0 26.7 0 60.4-26.5 81.4-16 13.4-33.5 16.9-74.5 16.9h-54c-41 0-57.5-3.5-74.5-16.9C1 218.9.5 186.3.1 160.5L0 155V97.7c0-23-.2-60.2 26.5-80.7C45 2 60 0 101 0zm4.9 23h44.3c45.8 0 58.3 3.5 70.3 17.5 11.8 13.2 12 30.1 12.5 62.9V156c.2 20.8.3 45.8-12.5 59.5-12 14-24.5 17.5-70.3 17.5h-44.3c-45.9 0-57.3-3.5-70.4-17.5-12.2-13-12.3-36.5-12.4-56.7v-55.6c.4-32.6.7-49.6 12.4-62.7C48 26.5 60 23 105.9 23zm19.6 144.5a42 42 0 1 0 0-84 42 42 0 0 0 0 84zm0 22.5a64.5 64.5 0 1 0 0-129 64.5 64.5 0 0 0 0 129z"/></svg>
+				<span>Instagram</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/hubianluanma" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:huhailong1121@gmail.com">
+				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 24 24"><path d="M0 3h24v18H0zm2 16h20V7l-10 6L2 7zM22 5H2l10 6z"/></svg>
+				<span>huhailong1121@gmail.com</span>
+			</a>
+		</div>
+
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="huhailong"  rel="noopener noreferrer" href="https://www.huhailong.vip" target="_blank">
+					<svg class="widget-social__link-icon icon icon-globe" width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+  
+  <circle cx="128" cy="128" r="120" stroke="currentColor" stroke-width="16" fill="none"/>
+  
+  <ellipse cx="128" cy="128" rx="50" ry="120" stroke="currentColor" stroke-width="16" fill="none"/>
+  
+  <line x1="8" y1="128" x2="248" y2="128" stroke="currentColor" stroke-width="16"/>
+  
+  <path d="M48,80 a180,180 0 0,1 160,0" stroke="currentColor" stroke-width="16" fill="none"/>
+  
+  <path d="M48,176 a180,180 0 0,0 160,0" stroke="currentColor" stroke-width="16" fill="none"/>
+</svg>
+				<span>huhailong</span>
+			</a>
+		</div>
+		
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+
+		<div class="footer__copyright">
+			&copy; 2025 胡编乱码.
+			
+		</div>
+	</div>
+</footer>
+
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>
