@@ -2,31 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>学习 on 胡编乱码</title>
-    <link>https://blog.hubianluanma.com/categories/%E5%AD%A6%E4%B9%A0/</link>
+    <link>http://localhost:1313/categories/%E5%AD%A6%E4%B9%A0/</link>
     <description>Recent content in 学习 on 胡编乱码</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 27 Jul 2025 19:45:10 +0800</lastBuildDate>
-    <atom:link href="https://blog.hubianluanma.com/categories/%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Nov 2025 07:53:17 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PostgreSQL 中创建俩中唯一约束条件记录</title>
+      <link>http://localhost:1313/post/postgresql-study-2/</link>
+      <pubDate>Mon, 10 Nov 2025 07:53:17 +0800</pubDate>
+      <guid>http://localhost:1313/post/postgresql-study-2/</guid>
+      <description>&lt;p&gt;最近在做一个项目的时候遇到了常见的场景：用户注册功能，注册时需要保证&lt;code&gt;username&lt;/code&gt;的唯一性，还有要保证已经激活状态下&lt;code&gt;email&lt;/code&gt;的唯一性，如果放到以前，我直接就用代码逻辑去控制了，但是最近在重新学习PostgreSQL，而且既然数据库已经有唯一约束这种特性，为什么我们还需要自己用代码去实现呢？除非你的项目是超大集群，否则如果是一个小型项目，开发人员也不多，这里只有我自己，那么充分利用数据库的这些特性是最佳选择，因此上述场景我就使用了数据库的俩中唯一约束。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Rust学习——变量与它的可变性</title>
-      <link>https://blog.hubianluanma.com/post/rust-variable/</link>
+      <link>http://localhost:1313/post/rust-variable/</link>
       <pubDate>Sun, 27 Jul 2025 19:45:10 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/rust-variable/</guid>
+      <guid>http://localhost:1313/post/rust-variable/</guid>
       <description>&lt;p&gt;每天学习一点 Rust 知识，今天主要看一下 Rust 中的变量和它的可变性，主要介绍一下 &lt;code&gt;let&lt;/code&gt;、&lt;code&gt;let mut&lt;/code&gt;、&lt;code&gt;const&lt;/code&gt; 和 shadowing 的概念。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;let 声明变量&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Rust 中的变量默认是不允许更改的，例如下面的代码会编译错误：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Rust学习—— Hello Cargo</title>
-      <link>https://blog.hubianluanma.com/post/hello-cargo/</link>
+      <link>http://localhost:1313/post/hello-cargo/</link>
       <pubDate>Sat, 26 Jul 2025 21:26:15 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/hello-cargo/</guid>
+      <guid>http://localhost:1313/post/hello-cargo/</guid>
       <description>&lt;p&gt;Cargo 是 Rust 的构建系统和包管理器，类似Java中的maven。大多数 Rustaceans 都使用这个工具管理他们的 Rust 项目，因为 Cargo 会为你处理很多任务，例如构建代码、下载代码所依赖的库。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Rust学习—— Hell World</title>
-      <link>https://blog.hubianluanma.com/post/rust-install/</link>
+      <link>http://localhost:1313/post/rust-install/</link>
       <pubDate>Sat, 26 Jul 2025 21:02:38 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/rust-install/</guid>
+      <guid>http://localhost:1313/post/rust-install/</guid>
       <description>&lt;p&gt;执行下面的这段命令安装：&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl --proto &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;=https&amp;#39;&lt;/span&gt; --tlsv1.2 https://sh.restup.rs -sSf | sh&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行上面这段命令会安装下面的组件：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;cargo&lt;/li&gt;&#xA;&lt;li&gt;clippy&lt;/li&gt;&#xA;&lt;li&gt;rust-docs&lt;/li&gt;&#xA;&lt;li&gt;rust-std&lt;/li&gt;&#xA;&lt;li&gt;rustc&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;如果是 MacOS 的话没有C编译器的情况下可以执行下面的命令安装：&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xcode-select --install&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;验证是否安装成功：&lt;/p&gt;</description>
     </item>
   </channel>

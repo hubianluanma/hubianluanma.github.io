@@ -1,6 +1,6 @@
 +++
 date = '2025-11-10T07:53:17+08:00'
-draft = true
+draft = false
 title = 'PostgreSQL 中创建俩中唯一约束条件记录'
 tags = ['PostgreSQL','数据库']
 categories = ['学习']

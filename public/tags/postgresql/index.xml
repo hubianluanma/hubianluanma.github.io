@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Postgresql on 胡编乱码</title>
-    <link>https://blog.hubianluanma.com/tags/postgresql/</link>
-    <description>Recent content in Postgresql on 胡编乱码</description>
+    <title>PostgreSQL on 胡编乱码</title>
+    <link>http://localhost:1313/tags/postgresql/</link>
+    <description>Recent content in PostgreSQL on 胡编乱码</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 30 Oct 2025 13:32:10 +0800</lastBuildDate>
-    <atom:link href="https://blog.hubianluanma.com/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Nov 2025 07:53:17 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PostgreSQL 中创建俩中唯一约束条件记录</title>
+      <link>http://localhost:1313/post/postgresql-study-2/</link>
+      <pubDate>Mon, 10 Nov 2025 07:53:17 +0800</pubDate>
+      <guid>http://localhost:1313/post/postgresql-study-2/</guid>
+      <description>&lt;p&gt;最近在做一个项目的时候遇到了常见的场景：用户注册功能，注册时需要保证&lt;code&gt;username&lt;/code&gt;的唯一性，还有要保证已经激活状态下&lt;code&gt;email&lt;/code&gt;的唯一性，如果放到以前，我直接就用代码逻辑去控制了，但是最近在重新学习PostgreSQL，而且既然数据库已经有唯一约束这种特性，为什么我们还需要自己用代码去实现呢？除非你的项目是超大集群，否则如果是一个小型项目，开发人员也不多，这里只有我自己，那么充分利用数据库的这些特性是最佳选择，因此上述场景我就使用了数据库的俩中唯一约束。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>PostgreSQL 学习记录</title>
-      <link>https://blog.hubianluanma.com/post/postgresql-study-1/</link>
+      <link>http://localhost:1313/post/postgresql-study-1/</link>
       <pubDate>Thu, 30 Oct 2025 13:32:10 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/postgresql-study-1/</guid>
+      <guid>http://localhost:1313/post/postgresql-study-1/</guid>
       <description>&lt;p&gt;&lt;strong&gt;创建schema&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;下面举例创建一个名为 mr 的schema。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;切换指定的schema&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;set&lt;/span&gt; search_path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mr;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;create&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;schema&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;not&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;exists&lt;/span&gt; mr;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;创建table&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TABLE&lt;/span&gt; mr.users (&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    id SERIAL &lt;span style=&#34;color:#66d9ef&#34;&gt;PRIMARY&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;KEY&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    username VARCHAR(&lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;NOT&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;NULL&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;UNIQUE&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    email VARCHAR(&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;NOT&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;NULL&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;UNIQUE&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    create_time &lt;span style=&#34;color:#66d9ef&#34;&gt;TIMESTAMP&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;WITH&lt;/span&gt; TIME &lt;span style=&#34;color:#66d9ef&#34;&gt;ZONE&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;DEFAULT&lt;/span&gt; NOW(),&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    enabled BOOLEAN &lt;span style=&#34;color:#66d9ef&#34;&gt;DEFAULT&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面的 sql 是在 mr schema 下面创建了一个名为 users 的表，下面是字段类型解释&lt;/p&gt;</description>
     </item>
   </channel>

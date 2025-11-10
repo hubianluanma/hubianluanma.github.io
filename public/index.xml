@@ -2,94 +2,108 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>首页 on 胡编乱码</title>
-    <link>https://blog.hubianluanma.com/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content in 首页 on 胡编乱码</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 30 Oct 2025 13:32:10 +0800</lastBuildDate>
-    <atom:link href="https://blog.hubianluanma.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Nov 2025 07:53:17 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PostgreSQL 中创建俩中唯一约束条件记录</title>
+      <link>http://localhost:1313/post/postgresql-study-2/</link>
+      <pubDate>Mon, 10 Nov 2025 07:53:17 +0800</pubDate>
+      <guid>http://localhost:1313/post/postgresql-study-2/</guid>
+      <description>&lt;p&gt;最近在做一个项目的时候遇到了常见的场景：用户注册功能，注册时需要保证&lt;code&gt;username&lt;/code&gt;的唯一性，还有要保证已经激活状态下&lt;code&gt;email&lt;/code&gt;的唯一性，如果放到以前，我直接就用代码逻辑去控制了，但是最近在重新学习PostgreSQL，而且既然数据库已经有唯一约束这种特性，为什么我们还需要自己用代码去实现呢？除非你的项目是超大集群，否则如果是一个小型项目，开发人员也不多，这里只有我自己，那么充分利用数据库的这些特性是最佳选择，因此上述场景我就使用了数据库的俩中唯一约束。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>PostgreSQL 学习记录</title>
-      <link>https://blog.hubianluanma.com/post/postgresql-study-1/</link>
+      <link>http://localhost:1313/post/postgresql-study-1/</link>
       <pubDate>Thu, 30 Oct 2025 13:32:10 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/postgresql-study-1/</guid>
+      <guid>http://localhost:1313/post/postgresql-study-1/</guid>
       <description>&lt;p&gt;&lt;strong&gt;创建schema&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;下面举例创建一个名为 mr 的schema。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;切换指定的schema&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;set&lt;/span&gt; search_path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mr;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;create&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;schema&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;not&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;exists&lt;/span&gt; mr;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;创建table&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TABLE&lt;/span&gt; mr.users (&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    id SERIAL &lt;span style=&#34;color:#66d9ef&#34;&gt;PRIMARY&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;KEY&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    username VARCHAR(&lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;NOT&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;NULL&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;UNIQUE&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    email VARCHAR(&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;NOT&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;NULL&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;UNIQUE&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    create_time &lt;span style=&#34;color:#66d9ef&#34;&gt;TIMESTAMP&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;WITH&lt;/span&gt; TIME &lt;span style=&#34;color:#66d9ef&#34;&gt;ZONE&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;DEFAULT&lt;/span&gt; NOW(),&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    enabled BOOLEAN &lt;span style=&#34;color:#66d9ef&#34;&gt;DEFAULT&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上面的 sql 是在 mr schema 下面创建了一个名为 users 的表，下面是字段类型解释&lt;/p&gt;</description>
     </item>
     <item>
       <title>DBeaver 查看保存的密码</title>
-      <link>https://blog.hubianluanma.com/post/dbeaver-findpassword/</link>
+      <link>http://localhost:1313/post/dbeaver-findpassword/</link>
       <pubDate>Mon, 20 Oct 2025 17:42:29 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/dbeaver-findpassword/</guid>
+      <guid>http://localhost:1313/post/dbeaver-findpassword/</guid>
       <description>&lt;p&gt;DBeaver 保存的密码怎么查看（MAC）？&lt;/p&gt;&#xA;&lt;p&gt;当我们在DBeaver中保存了数据库的密码后没有类似小眼睛的按钮让我们直接查看，下面记录了在mac下如何查看密码。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Rust学习——变量与它的可变性</title>
-      <link>https://blog.hubianluanma.com/post/rust-variable/</link>
+      <link>http://localhost:1313/post/rust-variable/</link>
       <pubDate>Sun, 27 Jul 2025 19:45:10 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/rust-variable/</guid>
+      <guid>http://localhost:1313/post/rust-variable/</guid>
       <description>&lt;p&gt;每天学习一点 Rust 知识，今天主要看一下 Rust 中的变量和它的可变性，主要介绍一下 &lt;code&gt;let&lt;/code&gt;、&lt;code&gt;let mut&lt;/code&gt;、&lt;code&gt;const&lt;/code&gt; 和 shadowing 的概念。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;let 声明变量&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Rust 中的变量默认是不允许更改的，例如下面的代码会编译错误：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Rust学习—— Hello Cargo</title>
-      <link>https://blog.hubianluanma.com/post/hello-cargo/</link>
+      <link>http://localhost:1313/post/hello-cargo/</link>
       <pubDate>Sat, 26 Jul 2025 21:26:15 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/hello-cargo/</guid>
+      <guid>http://localhost:1313/post/hello-cargo/</guid>
       <description>&lt;p&gt;Cargo 是 Rust 的构建系统和包管理器，类似Java中的maven。大多数 Rustaceans 都使用这个工具管理他们的 Rust 项目，因为 Cargo 会为你处理很多任务，例如构建代码、下载代码所依赖的库。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Rust学习—— Hell World</title>
-      <link>https://blog.hubianluanma.com/post/rust-install/</link>
+      <link>http://localhost:1313/post/rust-install/</link>
       <pubDate>Sat, 26 Jul 2025 21:02:38 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/rust-install/</guid>
+      <guid>http://localhost:1313/post/rust-install/</guid>
       <description>&lt;p&gt;执行下面的这段命令安装：&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl --proto &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;=https&amp;#39;&lt;/span&gt; --tlsv1.2 https://sh.restup.rs -sSf | sh&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行上面这段命令会安装下面的组件：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;cargo&lt;/li&gt;&#xA;&lt;li&gt;clippy&lt;/li&gt;&#xA;&lt;li&gt;rust-docs&lt;/li&gt;&#xA;&lt;li&gt;rust-std&lt;/li&gt;&#xA;&lt;li&gt;rustc&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;如果是 MacOS 的话没有C编译器的情况下可以执行下面的命令安装：&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xcode-select --install&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;验证是否安装成功：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Cloudflare 页面规则使用示例</title>
-      <link>https://blog.hubianluanma.com/post/cloudflare-page-route/</link>
+      <link>http://localhost:1313/post/cloudflare-page-route/</link>
       <pubDate>Thu, 24 Jul 2025 18:21:11 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/cloudflare-page-route/</guid>
+      <guid>http://localhost:1313/post/cloudflare-page-route/</guid>
       <description>&lt;p&gt;目前，我所有和域名——hubianluanma.com相关的网站都是通过Cloudflare进行DNS解析和部署，其中主站的页面是通过它的Pages功能进行部署，好处是免费零成本。本文主要介绍如何让用户不管访问&lt;a href=&#34;https://hubianluanma..com&#34;&gt;https://hubianluanma.com&lt;/a&gt;还是&lt;a href=&#34;https://www.hubianluanma.com&#34;&gt;https://www.hubianluanma.com&lt;/a&gt;都可以访问到主站。&lt;/p&gt;</description>
     </item>
     <item>
       <title>基基孔肯雅热出现在中国广东</title>
-      <link>https://blog.hubianluanma.com/post/chikungunya/</link>
+      <link>http://localhost:1313/post/chikungunya/</link>
       <pubDate>Thu, 24 Jul 2025 10:37:51 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/chikungunya/</guid>
+      <guid>http://localhost:1313/post/chikungunya/</guid>
       <description>&lt;p&gt;下面是一篇关于广东近期基孔肯雅热疫情的科普文章，包含症状、治疗、预防建议，以及为何传播到广东的分析：&lt;/p&gt;&#xA;&lt;p&gt;🧬 什么是基孔肯雅热？&lt;/p&gt;&#xA;&lt;p&gt;基孔肯雅热（Chikungunya fever）是一种由基孔肯雅病毒（CHIKV）引起、通过蚊子（主要是白纹伊蚊和埃及斑蚊）传播的急性病毒性发热性疾病。其名称来自马康德语，意为“因疼痛而弯腰” ￼。&lt;/p&gt;</description>
     </item>
     <item>
+      <title>分享Qwen3 Corder WebDev</title>
+      <link>http://localhost:1313/post/qwen3-corder-webdev/</link>
+      <pubDate>Thu, 24 Jul 2025 09:57:19 +0800</pubDate>
+      <guid>http://localhost:1313/post/qwen3-corder-webdev/</guid>
+      <description>&lt;p&gt;今天试用了一下 &lt;a href=&#34;https://huggingface.co/spaces/Qwen/Qwen3-Coder-WebDev&#34;&gt;&lt;strong&gt;Qwen3-Corder-WebDev&lt;/strong&gt;&lt;/a&gt;。&#xA;感觉挺方便，实现出来的页面可以立马预览，对于想临时试用，或者体验 Qwen3-Corder 能力的小伙伴挺不错的，我是使用它生成一个 Landing Page ，效果挺不错。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://file.hubianluanma.com/u/vWcocU.png&#34; alt=&#34;image1&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>胡编乱码的文件系统搭建好了</title>
-      <link>https://blog.hubianluanma.com/post/file-system/</link>
+      <link>http://localhost:1313/post/file-system/</link>
       <pubDate>Sun, 13 Jul 2025 11:04:55 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/file-system/</guid>
+      <guid>http://localhost:1313/post/file-system/</guid>
       <description>&lt;p&gt;其实这个文件系统之前就已经搭建好了，只不过我映射的域名是&lt;strong&gt;moodrecorder.cn&lt;/strong&gt; 当时想着是作为心情记录员后续的文件服务器，但是目前心情记录员小程序的图片资源是通过服务端程序自己实现了，简单的存储到服务器本地，并没有使用这个文件系统，接下来简单的介绍一下我使用的这个开源文件系统或者说图床吧。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Mainroad 主题如何配置 Giscus 评论系统</title>
-      <link>https://blog.hubianluanma.com/post/mainroad-theme-comments/</link>
+      <link>http://localhost:1313/post/mainroad-theme-comments/</link>
       <pubDate>Sat, 12 Jul 2025 16:29:51 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/mainroad-theme-comments/</guid>
+      <guid>http://localhost:1313/post/mainroad-theme-comments/</guid>
       <description>&lt;p&gt;Hello，本文介绍和记录一下如何对 &lt;strong&gt;Mainroad&lt;/strong&gt; 这个主题配置评论模块，Mainroad 这个主题它默认支持的是 Disqus 评论系统，但是我更喜欢使用 Giscus 这个评论系统，因为它是基于 GitHub Discussions，这样既保护用户隐私，又方便管理，最重要的是它免费且纯净无广告。&lt;/p&gt;</description>
     </item>
     <item>
       <title>我的第一款长期维护的微信小程序</title>
-      <link>https://blog.hubianluanma.com/post/moodrecorder/</link>
+      <link>http://localhost:1313/post/moodrecorder/</link>
       <pubDate>Mon, 07 Jul 2025 14:15:56 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/moodrecorder/</guid>
+      <guid>http://localhost:1313/post/moodrecorder/</guid>
       <description>&lt;p&gt;&lt;strong&gt;心情记录员&lt;/strong&gt;，它是我到目前为止维护时间最长的一款微信小程序，主要的原因还是因为有人使用它，所以我决定长期维护，即使前期是用爱发电。接下来我会介绍一下它的主要功能和为什么当初要做它，以及未来对它的开发规划。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Hello World</title>
-      <link>https://blog.hubianluanma.com/post/hello-world/</link>
+      <link>http://localhost:1313/post/hello-world/</link>
       <pubDate>Mon, 07 Jul 2025 11:39:31 +0800</pubDate>
-      <guid>https://blog.hubianluanma.com/post/hello-world/</guid>
+      <guid>http://localhost:1313/post/hello-world/</guid>
       <description>&lt;p&gt;Hello，这里是胡编乱码，我叫胡海龙，一名全栈开发工程师。&lt;strong&gt;胡编乱码&lt;/strong&gt;这个昵称将会用于各个平台，例如哔哩哔哩、抖音等。之所以起这个名字是因为我希望未来能通过我的分享让编程或者说开发像这个名字一样“有趣”，本身编码开发是一件很枯燥的事情，如果能和有趣的事情结合那应该会变的不那么枯燥。&lt;/p&gt;</description>
     </item>
     <item>
       <title>SpringBoot实现分片上传文件</title>
-      <link>https://blog.hubianluanma.com/post/springboot%E5%AE%9E%E7%8E%B0%E5%88%86%E7%89%87%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</link>
+      <link>http://localhost:1313/post/springboot%E5%AE%9E%E7%8E%B0%E5%88%86%E7%89%87%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</link>
       <pubDate>Sat, 21 Oct 2023 11:56:11 +0000</pubDate>
-      <guid>https://blog.hubianluanma.com/post/springboot%E5%AE%9E%E7%8E%B0%E5%88%86%E7%89%87%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</guid>
+      <guid>http://localhost:1313/post/springboot%E5%AE%9E%E7%8E%B0%E5%88%86%E7%89%87%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</guid>
       <description>&lt;p&gt;大家好，这里是胡编乱码，欢迎大家收看本期内容，本期内容将介绍文件分片上传的技术和具体实现。&lt;/p&gt;&#xA;&lt;p&gt;本次演示的 Demo 前端比较简单，所以使用纯 html/js/css 来实现，前端的网络请求我将使用 Axios.js 来完成。服务端的话我将使用 SpringBoot 来开发，那么废话不多说，我们直接开始。&lt;/p&gt;</description>
     </item>
   </channel>
