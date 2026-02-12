@@ -33,14 +33,13 @@ ShowRssButtonInSectionTermList = true
 UseHugoToc = true
 disableSpecial1stPost = false
 disableScrollToTop = false
-comments = true
 hidemeta = false
 hideSummary = false
-showtoc = false
-tocopen = false
+showtoc = true
+tocopen = true
 
 [params.homeInfoParams]
-Title = "欢迎 👋"
+Title = "欢迎，来到胡编乱码👋"
 Content = "这是我的个人博客"
 
 [[params.socialIcons]]
@@ -91,7 +90,7 @@ weight = 40
 [markup.highlight]
 anchorLineNos = false
 codeFences = true
-guessSyntax = false
+guessSyntax = true
 lineNos = true
 noClasses = false
 style = "monokai"
