@@ -1,0 +1,113 @@
+baseURL = 'https://blog.hubianluanma.com/'
+languageCode = 'zh-cn'
+defaultContentLanguage = "zh"
+title = '胡编乱码'
+theme = 'PaperMod'
+
+enableEmoji = true
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+[params]
+env = "production"
+title = "胡编乱码"
+description = ""
+keywords = ["博客", "胡编乱码", "AI博客"]
+author = "胡海龙"
+
+DateFormat = "2006-01-02"
+
+defaultTheme = "auto"  # dark, light, auto
+disableThemeToggle = false
+
+# 功能开关
+ShowReadingTime = true
+ShowShareButtons = true
+ShowPostNavLinks = true
+ShowBreadCrumbs = true
+ShowCodeCopyButtons = true
+ShowWordCount = true
+ShowRssButtonInSectionTermList = true
+UseHugoToc = true
+disableSpecial1stPost = false
+disableScrollToTop = false
+comments = false
+hidemeta = false
+hideSummary = false
+showtoc = false
+tocopen = false
+
+[params.homeInfoParams]
+Title = "欢迎 👋"
+Content = "这是我的个人博客"
+
+[[params.socialIcons]]
+name = "github"
+url = "https://github.com/hubianluanma"
+
+[[params.socialIcons]]
+name = "twitter"
+url = "https://twitter.com/huhailong1121"
+
+[[params.socialIcons]]
+name = "email"
+url = "mailto:huhailong1121@icloud.com"
+
+[params.cover]
+hidden = false
+hiddenInList = false
+hiddenInSingle = false
+linkFullImages = true
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+
+[[menu.main]]
+identifier = "posts"
+name = "文章"
+url = "/posts/"
+weight = 10
+
+[[menu.main]]
+identifier = "archives"
+name = "归档"
+url = "/archives/"
+weight = 20
+
+[[menu.main]]
+identifier = "tags"
+name = "标签"
+url = "/tags/"
+weight = 30
+
+[[menu.main]]
+identifier = "search"
+name = "搜索"
+url = "/search/"
+weight = 40
+
+[markup.highlight]
+anchorLineNos = false
+codeFences = true
+guessSyntax = false
+lineNos = true
+noClasses = false
+style = "monokai"
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[params.giscus]
+repo = "hubianluanma/hubianluanma.github.io"
+repoId = "你的仓库ID"
+category = "Announcements"
+categoryId = "你的分类ID"
+mapping = "pathname"
+strict = "0"
+reactionsEnabled = "1"
+emitMetadata = "0"
+inputPosition = "bottom"
+theme = "preferred_color_scheme"
+lang = "zh-CN"
