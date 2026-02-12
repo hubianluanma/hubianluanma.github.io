@@ -3,7 +3,6 @@ languageCode = 'zh-cn'
 defaultContentLanguage = "zh"
 title = '胡编乱码'
 theme = 'PaperMod'
-
 enableEmoji = true
 enableRobotsTXT = true
 buildDrafts = false
@@ -11,12 +10,12 @@ buildFuture = false
 buildExpired = false
 
 [params]
+comments = true
 env = "production"
 title = "胡编乱码"
 description = ""
 keywords = ["博客", "胡编乱码", "AI博客"]
 author = "胡海龙"
-
 DateFormat = "2006-01-02"
 
 defaultTheme = "auto"  # dark, light, auto
