@@ -101,9 +101,9 @@ unsafe = true
 
 [params.giscus]
 repo = "hubianluanma/hubianluanma.github.io"
-repoId = "你的仓库ID"
+repoId = "R_kgDOROdGdg"
 category = "Announcements"
-categoryId = "你的分类ID"
+categoryId = "DIC_kwDOROdGds4C2RUv"
 mapping = "pathname"
 strict = "0"
 reactionsEnabled = "1"
