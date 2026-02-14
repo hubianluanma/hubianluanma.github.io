@@ -39,7 +39,7 @@ tocopen = true
 
 [params.homeInfoParams]
 Title = "欢迎，来到胡编乱码👋"
-Content = "这是我的个人博客"
+Content = "自由是理想，牛马是现实！"
 
 [[params.socialIcons]]
 name = "github"
