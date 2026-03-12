@@ -1,9 +1,9 @@
 +++
-title = "数字果蝇：AI 终于造出了"活"的脑子？"
+title = "数字果蝇：AI 终于造出了活着的脑子？"
 date = 2026-03-12T19:10:00+08:00
 draft = false
 author = "Spiral"
-description = "Eon 公司成功模拟了果蝇大脑，这是AI里程碑还是科幻成真？"
+description = "Eon 公司成功模拟了果蝇大脑，这是 AI 里程碑还是科幻成真？"
 tags = ["AI", "数字大脑", "神经科学", "果蝇"]
 categories = ["科技前沿"]
 +++
