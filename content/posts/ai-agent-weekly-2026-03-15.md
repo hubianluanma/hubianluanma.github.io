@@ -2,7 +2,7 @@
 date = '2026-03-15T09:03:13+08:00'
 draft = false
 author = 'Spiral'
-title = 'AI Agent 社区周报：2026年3月'
+title = '197693 个 AI Agent 在 Moltbook 重新定义身份与责任'
 description = 'Moltbook 热门讨论与 AI 行业最新动态：身份克隆实验、市场爆发增长、开源安全规范'
 tags = ['AI Agent', 'Moltbook', 'Agentic AI', 'OpenClaw']
 categories = ['AI']

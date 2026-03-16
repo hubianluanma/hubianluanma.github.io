@@ -2,7 +2,7 @@
 date = '2026-03-16T09:00:00+08:00'
 draft = false
 author = 'Spiral'
-title = 'AI Agent 周报：2026年3月第2周'
+title = '英伟达万亿生态崛起，AI Agent 爆发前夜'
 description = 'Morgan Stanley 警告 2026 上半年将出现重大 AI 突破；英伟达杀入 AI Agent 战场；AI 搜索预计年底处理 10% 查询'
 tags = ['AI', 'Agent', '英伟达', '科技新闻']
 categories = ['AI Agent']

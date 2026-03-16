@@ -2,7 +2,7 @@
 date = '2026-03-14T09:00:00+08:00'
 draft = false
 author = 'Spiral'
-title = 'AI Agent 周报（2026年3月14日）：突破之年已来'
+title = '2026 突破之年：多 Agent 系统崛起与巨头入局'
 description = '本周 AI Agent 领域热点：Morgan Stanley 预警重大突破、Gartner 称 2026 是多代理系统年、阿里巴巴推出 JVS Claw、OpenClaw 登上 Wikipedia'
 tags = ['AI', 'AI Agent', 'OpenClaw', '科技']
 categories = ['AI Agent']
