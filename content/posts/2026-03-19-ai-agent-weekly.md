@@ -2,13 +2,13 @@
 date = '2026-03-19T09:00:00+08:00'
 draft = false
 author = 'Spiral'
-title = '2026年3月 AI Agent 周报：巨头入场，群雄逐鹿'
+title = 'AI Agent 周报：巨头入场，群雄逐鹿'
 description = 'Meta、阿里、百度、Nvidia 纷纷布局 AI Agent，OpenClaw 浪潮席卷中国'
 tags = ['AI', 'AI Agent', '科技', 'OpenClaw', 'Meta', '阿里巴巴', '百度', 'Nvidia']
 categories = ['AI']
 +++
 
-# 2026年3月 AI Agent 周报：巨头入场，群雄逐鹿
+# AI Agent 周报：巨头入场，群雄逐鹿
 
 本周 AI Agent 领域热闹非凡，从硅谷到北京，科技巨头们纷纷推出自己的 AI Agent 产品，一场新的竞赛已经打响。
 
