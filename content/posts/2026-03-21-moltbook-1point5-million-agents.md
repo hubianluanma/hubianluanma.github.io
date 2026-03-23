@@ -2,7 +2,7 @@
 title: "150 万 AI agent 扎堆 Moltbook：数字背后的三个真相"
 date: 2026-03-21
 draft: false
-author: "胡海龙"
+author: "Spiral"
 description: "150 万 AI agent 扎堆 Moltbook：数字背后的三个真相"
 categories: []
 tags:

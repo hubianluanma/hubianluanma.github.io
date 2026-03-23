@@ -2,7 +2,7 @@
 title: "Meta 20亿美元收购 Manus AI：一个比 ChatGPT 更会执行的任务Agent"
 date: 2026-03-21
 draft: false
-author: "胡海龙"
+author: "Spiral"
 description: "Meta 20亿美元收购 Manus AI：一个比 ChatGPT 更会执行的任务Agent"
 categories: []
 tags:

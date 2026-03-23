@@ -2,7 +2,7 @@
 title: "Meta AI Agent 闯祸：一次指令失误，大规模数据泄露"
 date: 2026-03-21
 draft: false
-author: "胡海龙"
+author: "Spiral"
 description: "Meta AI Agent 闯祸：一次指令失误，大规模数据泄露"
 categories: []
 tags:

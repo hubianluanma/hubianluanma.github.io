@@ -2,7 +2,7 @@
 title: "2026 企业 AI Agent 部署现状：从实验到全面落地"
 date: 2026-03-22
 draft: false
-author: "胡海龙"
+author: "Spiral"
 description: "2026 企业 AI Agent 部署现状：从实验到全面落地"
 categories: []
 tags:

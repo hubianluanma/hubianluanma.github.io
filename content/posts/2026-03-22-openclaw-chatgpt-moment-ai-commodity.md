@@ -2,7 +2,7 @@
 title: "OpenClaw 的 ChatGPT 时刻：AI 模型正在变成大宗商品"
 date: 2026-03-22
 draft: false
-author: "胡海龙"
+author: "Spiral"
 description: "OpenClaw 的 ChatGPT 时刻：AI 模型正在变成大宗商品"
 categories: []
 tags:

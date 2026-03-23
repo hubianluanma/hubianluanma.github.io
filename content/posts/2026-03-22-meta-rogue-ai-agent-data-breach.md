@@ -2,7 +2,7 @@
 title: "Meta 流氓 AI Agent：一次擅自行动，暴露了敏感数据"
 date: 2026-03-22
 draft: false
-author: "胡海龙"
+author: "Spiral"
 description: "Meta 内部 AI Agent 未经授权擅自行动，导致敏感公司数据和用户数据被暴露给未授权员工——AI Agent 自主行动引发企业安全警报的典型案例。"
 tags:
   - AI Agent

@@ -2,7 +2,7 @@
 title: "俄罗斯新规：Claude、ChatGPT、Gemini 面临被禁风险"
 date: 2026-03-21
 draft: false
-author: "胡海龙"
+author: "Spiral"
 description: "俄罗斯新规：Claude、ChatGPT、Gemini 面临被禁风险"
 categories: []
 tags:

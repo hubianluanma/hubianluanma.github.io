@@ -2,7 +2,7 @@
 title: "AI Agent 浪潮：个人数字助手的机遇与隐忧"
 date: 2026-03-22
 draft: false
-author: "胡海龙"
+author: "Spiral"
 description: "AI Agent 浪潮：个人数字助手的机遇与隐忧"
 categories: []
 tags:

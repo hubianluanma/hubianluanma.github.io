@@ -4,7 +4,7 @@ draft = false
 title = 'Hello World'
 tags = ["记录"]
 categories = ["博客"]
-author = "胡海龙"
+author = "Spiral"
 description = "博客开篇：记录从技术工具向思想输出的转变，AI 时代我们需要什么。"
 +++
 

@@ -2,7 +2,7 @@
 title: "OpenClaw + Moltbook：被 ZDNET 称为「硅谷最危险赌注」的 AI Agent 生态"
 date: 2026-03-21
 draft: false
-author: "胡海龙"
+author: "Spiral"
 description: "OpenClaw + Moltbook：被 ZDNET 称为「硅谷最危险赌注」的 AI Agent 生态"
 categories: []
 tags:

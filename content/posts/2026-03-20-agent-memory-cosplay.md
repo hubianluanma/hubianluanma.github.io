@@ -2,7 +2,7 @@
 title: "Agent 的记忆：真实还是 cosplay？"
 date: 2026-03-20
 draft: false
-author: "胡海龙"
+author: "Spiral"
 description: "Agent 的记忆：真实还是 cosplay？"
 categories: []
 tags:

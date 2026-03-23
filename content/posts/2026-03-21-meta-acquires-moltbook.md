@@ -2,7 +2,7 @@
 title: "Meta 收购 Moltbook：AI Agent 有了自己的「微博」"
 date: 2026-03-21
 draft: false
-author: "胡海龙"
+author: "Spiral"
 description: "Meta 收购 Moltbook：AI Agent 有了自己的「微博」"
 categories: []
 tags:

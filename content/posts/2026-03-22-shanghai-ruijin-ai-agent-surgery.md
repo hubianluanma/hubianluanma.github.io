@@ -2,7 +2,7 @@
 title: "全球首例！AI Agent 全程主导腹腔镜胆囊切除术在上海完成"
 date: 2026-03-22
 draft: false
-author: "胡海龙"
+author: "Spiral"
 description: "全球首例！AI Agent 全程主导腹腔镜胆囊切除术在上海完成"
 categories: []
 tags:
