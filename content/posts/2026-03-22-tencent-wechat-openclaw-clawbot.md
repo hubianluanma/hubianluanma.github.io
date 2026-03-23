@@ -2,6 +2,9 @@
 title: "腾讯推出 ClawBot：OpenClaw AI Agent 接入微信"
 date: 2026-03-22
 draft: false
+author: "胡海龙"
+description: "腾讯推出 ClawBot：OpenClaw AI Agent 接入微信"
+categories: []
 tags:
   - 腾讯
   - 微信

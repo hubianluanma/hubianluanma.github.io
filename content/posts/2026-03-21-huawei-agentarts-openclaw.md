@@ -2,6 +2,9 @@
 title: "华为借 OpenClaw 热潮推 AgentArts 平台：4 月 30 日公开测试"
 date: 2026-03-21
 draft: false
+author: "胡海龙"
+description: "华为借 OpenClaw 热潮推 AgentArts 平台：4 月 30 日公开测试"
+categories: []
 tags:
   - 华为
   - AgentArts

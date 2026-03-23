@@ -2,6 +2,9 @@
 title: "白宫发布 AI 立法框架：4 页纸，3 个重点，N 个问号"
 date: 2026-03-21
 draft: false
+author: "胡海龙"
+description: "白宫发布 AI 立法框架：4 页纸，3 个重点，N 个问号"
+categories: []
 tags:
   - AI政策
   - 美国

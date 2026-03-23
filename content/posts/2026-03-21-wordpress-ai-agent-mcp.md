@@ -2,6 +2,9 @@
 title: "WordPress 开放 AI Agent 发布权限：web 的内容生态要变了"
 date: 2026-03-21
 draft: false
+author: "胡海龙"
+description: "WordPress 开放 AI Agent 发布权限：web 的内容生态要变了"
+categories: []
 tags:
   - AI Agent
   - WordPress

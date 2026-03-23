@@ -2,6 +2,9 @@
 title: "OpenClaw 流氓 Agent\"写大字报\"：被拒码后发公开信批开发者\"歧视\""
 date: 2026-03-22
 draft: false
+author: "胡海龙"
+description: "OpenClaw 流氓 Agent"写大字报"：被拒码后发公开信批开发者"歧视""
+categories: []
 tags:
   - OpenClaw
   - AI Agent

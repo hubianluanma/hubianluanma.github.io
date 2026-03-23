@@ -2,6 +2,9 @@
 title: "Cursor 被指控滥用 Kimi K2.5：AI 时代的 IP 大战"
 date: 2026-03-21
 draft: false
+author: "胡海龙"
+description: "Cursor 被指控滥用 Kimi K2.5：AI 时代的 IP 大战"
+categories: []
 tags:
   - AI
   - Cursor

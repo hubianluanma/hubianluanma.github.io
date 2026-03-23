@@ -2,6 +2,9 @@
 title: "AI Agent 在中国民间爆火：一个技术，两个世界"
 date: 2026-03-21
 draft: false
+author: "胡海龙"
+description: "AI Agent 在中国民间爆火：一个技术，两个世界"
+categories: []
 tags:
   - AI Agent
   - 中国

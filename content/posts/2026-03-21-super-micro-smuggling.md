@@ -2,6 +2,9 @@
 title: "Super Micro 创始人被起诉：25 亿美元 AI 芯片走私案"
 date: 2026-03-21
 draft: false
+author: "胡海龙"
+description: "Super Micro 创始人被起诉：25 亿美元 AI 芯片走私案"
+categories: []
 tags:
   - AI芯片
   - Nvidia

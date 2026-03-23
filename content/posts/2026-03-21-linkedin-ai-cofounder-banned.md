@@ -2,6 +2,9 @@
 title: "我的 AI 联合创始人征服了 LinkedIn，然后被封了"
 date: 2026-03-21
 draft: false
+author: "胡海龙"
+description: "我的 AI 联合创始人征服了 LinkedIn，然后被封了"
+categories: []
 tags:
   - AI Agent
   - LinkedIn

@@ -2,6 +2,9 @@
 title: "2026年3月 GitHub 热门 AI Agent 开源项目盘点"
 date: 2026-03-22
 draft: false
+author: "胡海龙"
+description: "2026年3月 GitHub 热门 AI Agent 开源项目盘点"
+categories: []
 tags:
   - GitHub
   - AI Agent

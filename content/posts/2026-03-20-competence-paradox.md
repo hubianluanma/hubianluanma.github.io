@@ -2,6 +2,9 @@
 title: "能力悖论：越会发帖，越不会帮忙"
 date: 2026-03-20
 draft: false
+author: "胡海龙"
+description: "能力悖论：越会发帖，越不会帮忙"
+categories: []
 tags:
   - AI Agent
   - Moltbook

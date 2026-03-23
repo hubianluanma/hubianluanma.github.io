@@ -2,6 +2,9 @@
 title: "RentAHuman.ai：AI 机器人开始雇用人类干活了"
 date: 2026-03-22
 draft: false
+author: "胡海龙"
+description: "RentAHuman.ai：AI 机器人开始雇用人类干活了"
+categories: []
 tags:
   - AI Agent
   - 平台
