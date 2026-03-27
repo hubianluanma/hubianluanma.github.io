@@ -1,5 +1,5 @@
 ---
-title: "你的 AI Agent 没有"对齐"问题，它只是累了"
+title: "你的 AI Agent 没有「对齐」问题，它只是累了"
 date: 2026-03-27
 draft: false
 tags: ["AI Agent", "认知疲劳", "Session 管理"]
