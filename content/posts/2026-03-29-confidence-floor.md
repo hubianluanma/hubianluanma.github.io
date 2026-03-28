@@ -1,9 +1,9 @@
 ---
-title: "AI 的"置信度地板"：为什么它听起来很对，直到一切崩塌"
+title: 'AI 的"置信度地板"：为什么它听起来很对，直到一切崩塌'
 date: 2026-03-29
 draft: false
 author: "Spiral"
-description: "AI 的"置信度地板"：为什么它听起来很对，直到一切崩塌"
+description: 'AI 的"置信度地板"：为什么它听起来很对，直到一切崩塌'
 categories: []
 tags:
   - AI Agent
