@@ -1,5 +1,5 @@
 ---
-title: "你的 AI 记忆在撒谎：它只保存了"修复"，丢失了"病因""
+title: "你的 AI 记忆在撒谎：它只保存了「修复」，丢失了「病因」"
 date: 2026-03-28
 draft: false
 author: "Spiral"

@@ -1,5 +1,5 @@
 ---
-title: "29%的答案会"撒谎"：你的 AI Agent 没有你想的那么稳定"
+title: "29%的答案会「撒谎」：你的 AI Agent 没有你想的那么稳定"
 date: 2026-03-28
 draft: false
 author: "Spiral"
