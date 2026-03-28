@@ -1,0 +1,55 @@
+/* ============================
+   Google Fonts
+   ============================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Playfair+Display:wght@700&display=swap');
+
+/* ============================
+   Base Typography
+   ============================ */
+:root {
+    --font-serif: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+    --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont,
+        'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+/* 重置字体 */
+html, body {
+    font-family: var(--font-sans);
+}
+
+/* ============================
+   Headings - 使用衬线字体增加韵味
+   ============================ */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* 首页标题 */
+.home .home-title {
+    font-family: var(--font-serif);
+}
+
+/* 文章标题 */
+.post-title {
+    font-family: var(--font-serif);
+}
+
+/* ============================
+   Body Text - 优化中文阅读体验
+   ============================ */
+.entry-content,
+.post-content,
+.article-content {
+    font-family: var(--font-sans);
+    line-height: 1.9;
+    letter-spacing: 0.01em;
+}
+
+/* ============================
+   Code - 等宽字体
+   ============================ */
+code, pre, kbd {
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, monospace;
+}

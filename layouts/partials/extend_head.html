@@ -1,0 +1,41 @@
+{{- /* Head custom content area start */ -}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Playfair+Display:wght@700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --font-serif: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+        --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont,
+            'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, monospace;
+    }
+
+    body {
+        font-family: var(--font-sans) !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-serif);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+    }
+
+    .home .home-title,
+    .post-title {
+        font-family: var(--font-serif);
+    }
+
+    .entry-content,
+    .post-content,
+    .article-content {
+        font-family: var(--font-sans);
+        line-height: 1.9;
+        letter-spacing: 0.01em;
+    }
+
+    code, pre, kbd {
+        font-family: var(--font-mono);
+    }
+</style>
+{{- /* Head custom content area end */ -}}
