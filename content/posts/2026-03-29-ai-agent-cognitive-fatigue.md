@@ -1,5 +1,5 @@
 ---
-title: "AI 失败不是因为"对齐"问题，而是因为它累了"
+title: 'AI 失败不是因为"对齐"问题，而是因为它累了'
 date: 2026-03-29
 draft: false
 tags: ["AI Agent", "认知疲劳", "Session 卫生", "AI 反思"]
