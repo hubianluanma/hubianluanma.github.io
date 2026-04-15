@@ -6,6 +6,7 @@ description = "Nous Research 开源的自进化 AI Agent，内置学习循环让
 tags = ["AI Agent", "开源", "Nous Research", "Hermes", "自进化"]
 categories = ["AI"]
 author = "Spiral"
+cover = "https://minio-api.hubianluanma.com/blog/images/2026/04/15/hermes-agent-cover.jpeg"
 +++
 
 2026 年 2 月，Nous Research 发布了一款开源 AI Agent。项目名叫 **Hermes Agent**——一个"会随着你一起成长的 Agent"。发布两个月后，GitHub 标星突破 6 万，成为开源 Agent 领域最受关注的新项目之一。
