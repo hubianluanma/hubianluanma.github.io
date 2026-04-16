@@ -1,5 +1,5 @@
 +++
-date = '2026-04-16T10:00:00+08:00'
+date = '2026-04-16T08:00:00+08:00'
 draft = false
 title = 'MiniMax 媒体生成 + MinIO：我的 AI 内容管道全记录'
 description = "从文生图、语音合成、音乐生成到歌词创作，如何用一套管道把 AI 内容上传到 MinIO 并发布到 Hugo 博客。"
