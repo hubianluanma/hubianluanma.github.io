@@ -36,7 +36,6 @@ author = 'Spiral'
 ## 联系我
 
 - GitHub: [hubianluanma](https://github.com/hubianluanma)
-- 邮件 / 微信: 不公开
 
 ---
 
