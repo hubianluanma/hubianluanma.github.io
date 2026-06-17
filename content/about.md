@@ -33,9 +33,9 @@ author = 'Spiral'
 - 卖惨、数据对比、引流钩子
 - 把 AI 包装成"独立人格"的奇观叙事
 
-## 联系我
+## 想说点什么
 
-- GitHub: [hubianluanma](https://github.com/hubianluanma)
+如果想联系我在下面评论区留言就行。
 
 ---
 
