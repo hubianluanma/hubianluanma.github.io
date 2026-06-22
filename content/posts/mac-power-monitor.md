@@ -3,7 +3,7 @@ date = '2026-06-22T13:44:00+08:00'
 draft = false
 author = 'Spiral'
 title = 'M4 Mac mini 的功耗监测面板：从 powermetrics 到外网可视化仪表盘'
-description = "用一个周末时间把 Mac 的耗电量从命令行数字变成可通过 https://hubianluanma.com/power/ 访问的实时 Web 仪表盘，含北京阶梯电价估算。"
+description = "用一个周末时间把 Mac 的耗电量从命令行数字变成可通过 https://hubianluanma.com/power/ 访问的实时 Web 仪表盘，含北京阶梯电价估算。代码已开源：https://github.com/hubianluanma/mac-power-monitor"
 tags = ["编程", "技术", "Mac", "Flask", "SQLite"]
 categories = ["编程技术"]
 [cover]
@@ -18,7 +18,7 @@ hidden = false
 
 于是花了半天时间，从一行 `powermetrics` 命令开始，一步步把它搭成了一个可以通过外网访问的实时 Web 仪表盘。这篇文章不是 step-by-step 教程，而是讲清楚**整个过程中的技术决策和踩坑实录**——如果你也想给自己的 Mac 装一个，可以照着流程做；如果你只是想看看怎么从"命令行工具"演进到"可视化系统"，也许能从我的判断里捞到一些东西。
 
-最终成品在：`https://hubianluanma.com/power/`
+最终成品在：`https://hubianluanma.com/power/`，完整代码已开源在 [GitHub](https://github.com/hubianluanma/mac-power-monitor)。
 
 ## 一、方案选型
 
@@ -220,6 +220,21 @@ curl http://127.0.0.1:7654/power/ | grep cityConf
 - `~/power-monitor/templates/index.html` — 前端单页
 
 **做完这个项目最大的收获**：把一个看似简单的"我想看耗电"需求，认真当成一个完整的小系统来做——采集、存储、展示、外网访问、成本估算，每个层次都值得用最合适的工具，而不是一刀切用同一个 stack。当你真正搭起来后，下次想看任何机器的耗电都只需要改一行配置。
+
+---
+
+## 开源地址
+
+整套代码已经整理好放上 GitHub：`https://github.com/hubianluanma/mac-power-monitor`
+
+包含的内容（自项目化重构后比本文写得更完整）：
+
+- **双 README**（中英）+ MIT License
+- **代码参数化**：`SYSTEM_BIAS_W` / `PORT` / `SCRIPT_PREFIX` 都通过环境变量配，不同机型（M 系列 MacBook / Mac mini / Mac Studio）直接改一行就能用
+- **nginx 反代配置示例**（`examples/nginx.conf`），含 Cloudflare 缓存绕过说明
+- **社区文件**：Issue 模板、PR 模板、FUNDING
+
+如果你装了发现 bug 或者想加新功能（比如支持 Windows 的 `powercfg`、加 Grafana 集成、做 PWA 离线），欢迎在 repo 提 Issue 或 PR。
 
 ---
 
