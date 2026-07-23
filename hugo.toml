@@ -55,7 +55,7 @@ url = "mailto:huhailong1121@icloud.com"
 
 [params.cover]
 hidden = false
-hiddenInList = false
+hiddenInList = true
 hiddenInSingle = false
 linkFullImages = true
 
