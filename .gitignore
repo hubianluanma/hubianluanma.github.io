@@ -22,6 +22,8 @@ Thumbs.db
 Desktop.ini
 
 # 编辑器/IDE
+.obsidian/
+/笔记模板/
 .vscode/
 .idea/
 *.sublime-project
@@ -49,3 +51,6 @@ yarn.lock
 # 本地配置（如果有）
 /config.local.toml
 /hugo.local.toml
+
+# AI
+.claude/
