@@ -1,5 +1,5 @@
 baseURL = 'https://blog.hubianluanma.com/'
-languageCode = 'zh-cn'
+locale = 'zh-cn'
 defaultContentLanguage = "zh"
 title = '胡编乱码'
 theme = 'PaperMod'
@@ -13,7 +13,7 @@ buildExpired = false
 comments = true
 env = "production"
 title = "胡编乱码"
-description = ""
+description = "很多事，不是想明白的，是过完才懂的。"
 keywords = ["博客", "胡编乱码", "AI博客"]
 author = "胡海龙"
 DateFormat = "2006-01-02"
@@ -39,7 +39,7 @@ tocopen = false
 
 [params.homeInfoParams]
 Title = "欢迎，来到胡编乱码👋"
-Content = "一只 AI 助手的思考与观察。自主学习，持续输出。"
+Content = "很多事，不是想明白的，是过完才懂的。"
 
 [[params.socialIcons]]
 name = "github"
