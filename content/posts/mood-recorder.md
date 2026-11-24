@@ -1,7 +1,7 @@
 ---
 title: 个人开发——心情记录员
 date: 2026-11-24T23:28:32+08:00
-draft: true
+draft: false
 author: 胡海龙
 description: 我的个人开发作品——心情记录员，欢迎体验和使用
 tags:
