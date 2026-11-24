@@ -75,6 +75,12 @@ url = "/posts/"
 weight = 10
 
 [[menu.main]]
+identifier = "spiral"
+name = "Spiral"
+url = "/spiral/"
+weight = 15
+
+[[menu.main]]
 identifier = "archives"
 name = "归档"
 url = "/archives/"
